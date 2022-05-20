@@ -1,18 +1,27 @@
+<script setup>
+// @ is an alias to /src
+import MobileSideBar from "@/components/MobileSideBar.vue";
+import MobileHeader from "@/components/MobileHeader.vue";
+import MainContent from "@/components/MainContent.vue";
+import VFooter from "@/components/VFooter.vue";
+</script>
+
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+  <header class="px-4">
+    <MobileHeader />
+  </header>
+
+  <aside>
+    <!-- <MobileSideBar /> -->
+  </aside>
+
+  <main class="mt-10 px-4">
+    <MainContent />
+  </main>
+
+  <footer class="mt-24">
+    <VFooter />
+  </footer>
 </template>
 
-<script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
-export default {
-  name: "HomeView",
-  components: {
-    HelloWorld,
-  },
-};
-</script>
+<style scoped></style>
