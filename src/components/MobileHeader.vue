@@ -1,5 +1,5 @@
 <script setup>
-import Flag from "@/components/subcomponents/Flag.vue";
+import Flag from "@/components/subcomponents/Flag.vue"
 </script>
 
 <template>

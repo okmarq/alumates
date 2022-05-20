@@ -8,7 +8,7 @@ defineProps({
     type: String,
     required: true,
   },
-});
+})
 </script>
 <template>
   <div class="flex items-center px-3 py-2">

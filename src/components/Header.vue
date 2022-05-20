@@ -1,7 +1,7 @@
 <script setup>
-import FrenchFlag from "../icons/FrenchFlag.vue";
-import GhanaianFlag from "../icons/GhanaianFlag.vue";
-import NigerianFlag from "../icons/NigerianFlag.vue";
+import FrenchFlag from "../icons/FrenchFlag.vue"
+import GhanaianFlag from "../icons/GhanaianFlag.vue"
+import NigerianFlag from "../icons/NigerianFlag.vue"
 </script>
 
 <template>

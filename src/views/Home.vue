@@ -1,9 +1,9 @@
 <script setup>
 // @ is an alias to /src
-import MobileSideBar from "@/components/MobileSideBar.vue";
-import MobileHeader from "@/components/MobileHeader.vue";
-import MainContent from "@/components/MainContent.vue";
-import VFooter from "@/components/VFooter.vue";
+import MobileSideBar from "@/components/MobileSideBar.vue"
+import MobileHeader from "@/components/MobileHeader.vue"
+import MainContent from "@/components/MainContent.vue"
+import MobileFooter from "@/components/MobileFooter.vue"
 </script>
 
 <template>
@@ -20,7 +20,7 @@ import VFooter from "@/components/VFooter.vue";
   </main>
 
   <footer class="mt-24">
-    <VFooter />
+    <MobileFooter />
   </footer>
 </template>
 
