@@ -1,13 +1,13 @@
 <script setup>
-import { ref } from 'vue';
+import { useStore } from 'vuex';
 
-const hamburger = ref(true)
+const store = useStore()
 </script>
 
 <template>
-  <div class="backdrop_filter absolute top-0 left-0 translate-x-40 transition-all" :class="{ 'hidden': hamburger }" >
-    <div class="mobile_sidebar absolute top-0">
-      <div @click='hamburger = !hamburger' @toggleSidebar='hamburger = !hamburger'>Close</div>
+  <div class="backdrop_filter absolute top-0 right-0 z-50" :class="{ 'translate-x-0 transition-all w-screen h-screen': store.getters.sidebar, 'hidden': !store.getters.sidebar }">
+    <div class="bg-white absolute top-0 right-0 flex flex-col gap-12 pt-20" :class="{ 'translate-x-0 transition-all w-40 h-screen': store.getters.sidebar }">
+      <div @click="store.commit('toggleSidebar')">Close</div>
 
       <div>
         <div>Login</div>
@@ -20,16 +20,7 @@ const hamburger = ref(true)
 
 <style scoped>
 .backdrop_filter {
-  width: 100vw;
-  height: 100vh;
   background: rgba(196, 196, 196, 0.46);
   backdrop-filter: blur(7px);
-}
-
-.mobile_sidebar {
-  width: 150px;
-  height: 100vh;
-  left: 264px;
-  background: #fff;
 }
 </style>
