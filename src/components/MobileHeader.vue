@@ -1,5 +1,33 @@
 <script setup>
 import Flag from "@/components/subcomponents/Flag.vue"
+import { ref } from "vue";
+import { useStore } from "vuex";
+
+const flags = {
+  nigeria: {
+    flag_img: "../assets/images/flags/nigerianflag.svg",
+    flag_name: "Nigeria"
+  },
+  ghana: {
+    flag_img: "../assets/images/flags/ghanaianflag.svg",
+    flag_name: "Ghana"
+  },
+  france: {
+    flag_img: "../assets/images/flags/frenchflag.svg",
+    flag_name: "France"
+  }
+}
+
+let selectedFlag = {
+  src: "../assets/images/flags/frenchflag.svg",
+  id: 'frenchflag'
+}
+
+const selectCountry = ref(true)
+
+defineEmits(['toggleSidebar'])
+
+const store = useStore()
 </script>
 
 <template>
@@ -8,40 +36,26 @@ import Flag from "@/components/subcomponents/Flag.vue"
       <p class="font-bold">Alumates</p>
 
       <div class="relative">
-        <div class="flex items-center">
-          <img
-            src="../assets/images/flags/ghanaianflag.svg"
-            alt="flag"
-            class="pr-2"
-          />
+        <div class="flex items-center cursor-pointer" @click='selectCountry = !selectCountry'>
+          <img v-bind="selectedFlag" alt="flag" class="pr-2" />
 
-          <img src="../assets/images/arrowdown.svg" alt="arrow" />
+          <img src="../assets/images/arrowdown.svg" alt="arrow" class="hover:scale-110 transition-all"
+            id="select_country" />
         </div>
 
-        <div
-          class="shadow-md bg-white rounded-lg p-1 w-44 absolute top-6 -left-4 hidden"
-        >
-          <Flag
-            flag_img="/assets/images/flags/nigerianflag.svg"
-            flag_name="Nigeria"
-            :class="{ 'rounded-lg bg-gray-100': true }"
-          />
+        <div class="shadow-md bg-white rounded-lg w-40 absolute top-6 -left-4" :class="{ 'hidden': selectCountry }"
+          id="country_dropdown">
+          <Flag v-bind="flags.nigeria" :class="{ 'rounded-lg bg-gray-200': true }" />
 
-          <Flag
-            flag_img="/assets/images/flags/ghanaianflag.svg"
-            flag_name="Ghana"
-          />
+          <Flag v-bind="flags.ghana" />
 
-          <Flag
-            flag_img="/assets/images/flags/frenchflag.svg"
-            flag_name="France"
-          />
+          <Flag v-bind="flags.france" />
         </div>
       </div>
     </div>
 
-    <div>
-      <img src="../assets/images/hamburger.svg" alt="flag" class="pr-2" />
+    <div @click="toggleSidebar" id="hamburger">
+      <img src="../assets/images/hamburger.svg" alt="flag" class="pr-2 hover:scale-110 cursor-pointer transition-all" />
     </div>
   </div>
 </template>

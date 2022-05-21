@@ -4,11 +4,12 @@ import Step from "@/components/subcomponents/Step.vue"
 import MobileHero from "@/components/MobileHero.vue"
 import InputField from "@/components/subcomponents/InputField.vue"
 import FormTitle from "@/components/subcomponents/FormTitle.vue"
+import { ref } from "vue"
 
-defineProps({
-	step1: 'What’s state was your school in?',
-	step2: 'What’s city was your school in?',
-	step3: 'What’s the name of your school?'
+const steps = ref({
+	step1: "What’s state was your school in?",
+	step2: "What’s city was your school in?",
+	step3: "What’s the name of your school?"
 })
 </script>
 
