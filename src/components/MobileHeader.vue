@@ -25,8 +25,6 @@ let selectedFlag = {
 
 const selectCountry = ref(true)
 
-defineEmits(['toggleSidebar'])
-
 const store = useStore()
 </script>
 
@@ -54,7 +52,7 @@ const store = useStore()
       </div>
     </div>
 
-    <div @click="toggleSidebar" id="hamburger">
+    <div @click="store.commit('toggleSidebar')" id="hamburger">
       <img src="../assets/images/hamburger.svg" alt="flag" class="pr-2 hover:scale-110 cursor-pointer transition-all" />
     </div>
   </div>
