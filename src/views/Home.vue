@@ -12,7 +12,7 @@ import MobileFooter from "@/components/MobileFooter.vue"
   </header>
 
   <aside>
-    <!-- <MobileSideBar /> -->
+    <MobileSideBar />
   </aside>
 
   <main class="mt-10 px-4">
@@ -23,5 +23,3 @@ import MobileFooter from "@/components/MobileFooter.vue"
     <MobileFooter />
   </footer>
 </template>
-
-<style scoped></style>
