@@ -12,5 +12,5 @@ defineProps({
 </script>
 
 <template>
-  <button type="{{ type }}">{{ content }}</button>
+  <button :type="type">{{ content }}</button>
 </template>
