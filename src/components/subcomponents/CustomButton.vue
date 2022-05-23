@@ -15,8 +15,8 @@ defineProps({
 </script>
 
 <template>
-  <div class="{{ class }}">
+  <button class="{{ class }}">
     <div class="{{ class }}">{{ icon }}</div>
     <div class="{{ class }}">{{ content }}</div>
-  </div>
+  </button>
 </template>
