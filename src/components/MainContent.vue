@@ -11,10 +11,7 @@ import axios from 'axios'
 const steps = ref([
   {
     active: false,
-    button: {
-      type: 'button',
-      content: 'Continue'
-    },
+    content: 'Continue',
     formData: '',
     input: {
       type: 'text',
@@ -26,10 +23,7 @@ const steps = ref([
   },
   {
     active: false,
-    button: {
-      type: 'button',
-      content: 'Continue'
-    },
+    content: 'Continue',
     formData: '',
     input: {
       type: 'text',
@@ -41,10 +35,7 @@ const steps = ref([
   },
   {
     active: false,
-    button: {
-      type: 'submit',
-      content: "Let's go!"
-    },
+    content: "Let's go!",
     formData: '',
     input: {
       type: 'text',
@@ -55,44 +46,13 @@ const steps = ref([
     title: 'What’s the name of your school?'
   }
 ])
-
 const step = ref(0)
 const payload = ref({
   'state': steps.value[0].formData,
   'city': steps.value[1].formData,
   'school': steps.value[2].formData
 })
-
-function formBtn() {
-  console.log(steps.value[step.value].button)
-  console.log(steps.value[step.value].step_name)
-  if (steps.value[step.value].button.type === 'submit') {
-    // submit the button here
-    console.log('submit here')
-    // we will call the send form method below
-    // sendForm()
-  } else {
-    step.value++
-  }
-  console.log(steps.value[step.value].button)
-  console.log(steps.value[step.value].step_name)
-  // change the display
-}
-
-function formBtnNext() {
-  if (step.value <= 0) {
-    step.value = 0
-  } else {
-    step.value--
-  }
-  // change the display
-}
-
 function onSubmit() {
-  console.log('submitted here')
-}
-
-function sendForm() {
   axios.post(
     'https://alumates.herokuapp.com/alumni',
     payload
@@ -104,6 +64,16 @@ function sendForm() {
       console.log('Error', error)
       console.error('Error', error)
     })
+}
+function formBtn() {
+  if (step.value < steps.value.length - 1 && steps.value[step.value].formData != '') {
+    step.value++
+  }
+}
+function formBtnPrev() {
+  if (step.value > 0) {
+    step.value--
+  }
 }
 </script>
 
@@ -153,12 +123,16 @@ function sendForm() {
               stroke="#151522" stroke-width="1.5" />
           </svg>
 
+          <!-- <label for=""></label> -->
           <InputField v-model="steps[step].formData" v-bind="steps[step].input"
             :class="steps[step].step_name != '3' ? 'pl-9' : ''" />
         </div>
       </fieldset>
 
-      <Button v-bind="steps[step].button" class="bg-black py-3 w-full rounded-full" @click="formBtn" />
+      <Button v-if="steps[step].inputPadding" type="button" v-bind:content="steps[step].content"
+        class="bg-black py-3 w-full rounded-full" @click="formBtn" />
+
+      <Button v-else type="submit" v-bind:content="steps[step].content" class="bg-black py-3 w-full rounded-full" />
     </form>
 
     <img src="../assets/images/bg/ellipse.svg" alt="ellipse" class="absolute bottom-0 right-0" />
