@@ -4,6 +4,7 @@ import VAside from "@/components/layout/VAside.vue"
 import VFooter from "@/components/layout/VFooter.vue"
 import VHeader from "@/components/layout/VHeader.vue"
 import VMain from "@/components/layout/VMain.vue"
+import VPopup from "@/components/layout/VPopup.vue"
 </script>
 
 <template>
@@ -18,6 +19,10 @@ import VMain from "@/components/layout/VMain.vue"
   <main class="mt-10 px-4">
     <VMain />
   </main>
+
+  <div>
+    <VPopup />
+  </div>
 
   <footer class="mt-24">
     <VFooter />
