@@ -3,7 +3,7 @@
     class="bg-slate-900 flex flex-col gap-8 text-white mt-10 px-10 pt-12 pb-4"
   >
     <div class="flex flex-col gap-4">
-      <div class="text-sm font-semibold">We're your favourite places</div>
+      <div class="text-sm font-semibold">We're in all your favourite places</div>
 
       <div class="flex items-center justify-center gap-4">
         <button class="flex items-center gap-2 bg-white px-5 py-2 rounded-full">
