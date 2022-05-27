@@ -8,8 +8,8 @@ const store = useStore()
 
 <template>
   <div class="my-16">
-    <!-- <h2>{{ store.getters.school }}</h2> -->
-    <h2 class="text-2xl font-semibold mb-6">John Quincy Adams University</h2>
+    <h2 class="text-2xl font-semibold mb-6">{{ store.getters.school }}</h2>
+    <!-- <h2 class="text-2xl font-semibold mb-6">John Quincy Adams University</h2> -->
 
     <VButton content="Join alumni network" class="bg-stone-900 rounded-full py-2 px-3 text-white" />
   </div>
