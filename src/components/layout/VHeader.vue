@@ -1,7 +1,7 @@
 <script setup>
 import Flag from "@/components/subcomponents/Flag.vue"
-import { ref } from "vue";
-import { useStore } from "vuex";
+import { ref } from "vue"
+import { useStore } from "vuex"
 
 const flags = {
   nigeria: {

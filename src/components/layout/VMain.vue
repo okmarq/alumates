@@ -85,9 +85,9 @@ function formBtnPrev() {
 </script>
 
 <template>
-  <!-- <Hero /> -->
+  <Hero />
 
-  <!-- <div class="relative mt-5">
+  <div class="relative mt-5">
     <div class="flex justify-between items-center px-4">
       <Step :step_name="steps[0].step_name"
         :class="steps[0].formData != '' ? 'bg-fuchsia-800 text-white' : 'bg-white text-fuchsia-800'" />
@@ -100,17 +100,17 @@ function formBtnPrev() {
     <div class='absolute top-4 -z-10 px-10 w-full'>
       <hr class="border border-dashed border-fuchsia-800" />
     </div>
-  </div> -->
+  </div>
 
-  <!-- <div class="flex justify-between items-center mb-5">
+  <div class="flex justify-between items-center mb-5">
     <Badge :badge_name="steps[0].formData" :class="steps[0].formData != '' ? '' : 'invisible'" class="w-28" />
 
     <Badge :badge_name="steps[1].formData" :class="steps[1].formData != '' ? '' : 'invisible'" class="w-28" />
 
     <Badge :badge_name="steps[2].formData" :class="steps[2].formData != '' ? '' : 'invisible'" class="w-28" />
-  </div> -->
+  </div>
 
-  <!-- <div class="relative bg-indigo-600 p-12 mx-auto rounded-2xl text-white mt-16">
+  <div class="relative bg-indigo-600 p-12 mx-auto rounded-2xl text-white mt-16">
     <img src="../../assets/images/bg/ellipse.svg" alt="ellipse" class="absolute bottom-0 right-0" />
 
     <form @submit.prevent="onSubmit" class="space-y-4 relative z-10">
@@ -141,7 +141,9 @@ function formBtnPrev() {
 
       <VButton v-else type="submit" v-bind:content="steps[step].content" class="bg-black py-3 w-full rounded-full" />
     </form>
-  </div> -->
+  </div>
 
-  <List />
+  <div :class="{ 'hidden': true }">
+    <List />
+  </div>
 </template>
