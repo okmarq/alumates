@@ -1,11 +1,41 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import Login from '../views/Login.vue'
+import NewPassword from '../views/NewPassword.vue'
+import Register from '../views/Register.vue'
+import ResetPassword from '../views/ResetPassword.vue'
+import UserList from '../views/user/List.vue'
 
 const routes = [
   {
     path: '/',
     name: 'home',
     component: Home
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/new',
+    name: 'NewPassword',
+    component: NewPassword
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register
+  },
+  {
+    path: '/forgot',
+    name: 'ResetPassword',
+    component: ResetPassword
+  },
+  {
+    path: '/user/list',
+    name: 'UserList',
+    component: UserList
   },
   // {
   //   path: '/about',
