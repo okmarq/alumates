@@ -1,5 +1,5 @@
-<script setup>
-import VMain from "@/components/layout/VMain.vue"
-</script>
+<script setup></script>
 
-<template></template>
+<template>
+	<slot></slot>
+</template>

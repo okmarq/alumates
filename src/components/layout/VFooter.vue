@@ -1,13 +1,13 @@
 <script setup>
 import Flag from "@/components/subcomponents/Flag.vue"
-import { reactive, ref, watchEffect } from "vue"
+import { ref, watchEffect } from "vue"
 import { useRouter } from "vue-router";
 import { useStore } from "vuex"
 
 const store = useStore()
 const route = useRouter()
 const selectCountry = ref(true)
-let page = reactive(false)
+const page = ref(false)
 
 watchEffect(() => {
   switch (route.currentRoute.value.name) {
@@ -17,14 +17,14 @@ watchEffect(() => {
     case "NewPassword":
     case "Register":
     case "ResetPassword":
-      page = false
+      page.value = false
       break;
 
     default:
-      page = true
+      page.value = true
       break;
   }
-  return page
+  return page.value
 })
 </script>
 
