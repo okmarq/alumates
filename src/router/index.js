@@ -11,8 +11,9 @@ import AlumniLayout from '../views/alumni/Layout.vue'
 import JoinAlumni from '../views/alumni/Join.vue'
 import ListAlumni from '../views/alumni/List.vue'
 import AlumniPopup from '../views/alumni/Popup.vue'
+import AlumniPopup2 from '../views/alumni/Popup.vue'
 import ConnectUser from '../views/alumni/ConnectUser.vue'
-import DownloadApp from '../views/alumni/DownloadApp.vue'
+import Registered from '../views/alumni/Registered.vue'
 import FindUser from '../views/alumni/FindUser.vue'
 import NotRegistered from '../views/alumni/NotRegistered.vue'
 import RegisterSchool from '../views/alumni/Register.vue'
@@ -66,44 +67,25 @@ const routes = [
     component: AlumniLayout,
     children: [
       {
-        path: 'join',
-        name: 'JoinAlumni',
-        component: JoinAlumni,
-        children: [
-          {
-            path: 'popup',
-            name: 'AlumniPopup',
-            component: AlumniPopup
-          }
-        ]
-      },
-      {
         path: 'list',
         name: 'ListAlumni',
         component: ListAlumni,
         props: route => ({ page: parseInt(route.query.page) || 1 }),
         children: [
           {
-            path: '/popup',
+            path: 'popup',
             name: 'AlumniPopup',
             component: AlumniPopup,
             children: [
               {
+                path: 'connect',
+                name: 'ConnectUser',
+                component: ConnectUser
+              },
+              {
                 path: 'find',
                 name: 'FindUser',
                 component: FindUser
-              },
-              {
-                path: 'connect',
-                name: 'ConnectUser',
-                component: ConnectUser,
-                children: [
-                  {
-                    path: 'download',
-                    name: 'DownloadApp',
-                    component: DownloadApp
-                  }
-                ]
               },
               {
                 path: 'register',
@@ -113,7 +95,31 @@ const routes = [
             ]
           }
         ]
-      }
+      },
+      {
+        path: 'join',
+        name: 'JoinAlumni',
+        component: JoinAlumni,
+        children: [
+          {
+            path: 'popup',
+            name: 'AlumniPopup2',
+            component: AlumniPopup2,
+            children: [
+              {
+                path: 'unregistered',
+                name: 'NotRegistered',
+                component: NotRegistered
+              },
+              {
+                path: 'registered',
+                name: 'Registered',
+                component: Registered
+              }
+            ]
+          }
+        ]
+      },
     ]
   },
   // {
