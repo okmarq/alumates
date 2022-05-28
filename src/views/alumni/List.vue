@@ -76,4 +76,6 @@ const store = useStore()
       <span>15</span>
     </div>
   </div>
+
+  <router-view />
 </template>
