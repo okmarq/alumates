@@ -1,8 +1,11 @@
 <script setup>
 import Flag from "@/components/subcomponents/Flag.vue"
-import { ref } from "vue"
+import { ref, watchEffect } from "vue"
+import { useRouter } from "vue-router";
 import { useStore } from "vuex"
 
+const store = useStore()
+const route = useRouter()
 const flags = {
   nigeria: {
     flag_img: "../../assets/images/flags/nigerianflag.svg",
@@ -22,7 +25,25 @@ let selectedFlag = {
   id: 'frenchflag'
 }
 const selectCountry = ref(true)
-const store = useStore()
+const page = ref(false)
+
+watchEffect(() => {
+  switch (route.currentRoute.value.name) {
+    case "Register":
+    case "Login":
+    case "Login":
+    case "NewPassword":
+    case "Register":
+    case "ResetPassword":
+      page.value = false
+      break;
+
+    default:
+      page.value = true
+      break;
+  }
+  return page.value
+})
 </script>
 
 <template>
@@ -30,7 +51,7 @@ const store = useStore()
     <div class="flex gap-5">
       <p class="font-bold">Alumates</p>
 
-      <div class="relative">
+      <div class="relative" v-if="page">
         <div class="flex items-center cursor-pointer" @click='selectCountry = !selectCountry'>
           <img v-bind="selectedFlag" alt="flag" class="pr-2" />
 
@@ -49,7 +70,7 @@ const store = useStore()
       </div>
     </div>
 
-    <div @click="store.commit('toggleSidebar')" id="hamburger">
+    <div @click="store.commit('toggleSidebar')" id="hamburger" v-if="page">
       <img src="../../assets/images/hamburger.svg" alt="flag" class="pr-2 hover:scale-110 cursor-pointer transition-all" />
     </div>
   </div>
