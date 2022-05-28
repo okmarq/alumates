@@ -2,7 +2,6 @@
 import VAside from "@/components/layout/VAside.vue"
 import VFooter from "@/components/layout/VFooter.vue"
 import VHeader from "@/components/layout/VHeader.vue"
-import VMain from "@/components/layout/VMain.vue"
 </script>
 
 <template>
@@ -15,7 +14,6 @@ import VMain from "@/components/layout/VMain.vue"
   </aside>
 
   <main class="mt-10 px-4">
-    <VMain />
     <router-view />
   </main>
 
