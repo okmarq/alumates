@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-import Login from '../views/Login.vue'
-import NewPassword from '../views/NewPassword.vue'
-import Register from '../views/Register.vue'
-import ResetPassword from '../views/ResetPassword.vue'
-import UserList from '../views/user/List.vue'
+import SignLayout from '../views/sign/Layout.vue'
+import Conditions from '../views/sign/Conditions.vue'
+import Login from '../views/sign/Login.vue'
+import NewPassword from '../views/sign/NewPassword.vue'
+import Register from '../views/sign/Register.vue'
+import ResetPassword from '../views/sign/ResetPassword.vue'
+import Terms from '../views/sign/Terms.vue'
 
 const routes = [
   {
@@ -13,30 +15,47 @@ const routes = [
     component: Home
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: Login
+    path: '/user',
+    name: 'SignLayout',
+    component: SignLayout,
+    children: [
+      {
+        path: 'login',
+        name: 'Login',
+        component: Login
+      },
+      {
+        path: 'new',
+        name: 'NewPassword',
+        component: NewPassword
+      },
+      {
+        path: 'register',
+        name: 'Register',
+        component: Register
+      },
+      {
+        path: 'forgot',
+        name: 'ResetPassword',
+        component: ResetPassword
+      },
+      {
+        path: 'terms',
+        name: 'Terms',
+        component: Terms
+      },
+      {
+        path: 'conditions',
+        name: 'Conditions',
+        component: Conditions
+      }
+    ]
   },
-  {
-    path: '/new',
-    name: 'NewPassword',
-    component: NewPassword
-  },
-  {
-    path: '/register',
-    name: 'Register',
-    component: Register
-  },
-  {
-    path: '/forgot',
-    name: 'ResetPassword',
-    component: ResetPassword
-  },
-  {
-    path: '/user/list',
-    name: 'UserList',
-    component: UserList
-  },
+  // {
+  //   path: '/user/list',
+  //   name: 'UserList',
+  //   component: UserList
+  // },
   // {
   //   path: '/about',
   //   name: 'about',
