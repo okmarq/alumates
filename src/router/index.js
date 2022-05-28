@@ -1,12 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-import SignLayout from '../views/sign/Layout.vue'
-import Conditions from '../views/sign/Conditions.vue'
-import Login from '../views/sign/Login.vue'
-import NewPassword from '../views/sign/NewPassword.vue'
-import Register from '../views/sign/Register.vue'
-import ResetPassword from '../views/sign/ResetPassword.vue'
-import Terms from '../views/sign/Terms.vue'
+import UserLayout from '../views/user/Layout.vue'
+import Conditions from '../views/user/Conditions.vue'
+import Login from '../views/user/Login.vue'
+import NewPassword from '../views/user/NewPassword.vue'
+import Register from '../views/user/Register.vue'
+import ResetPassword from '../views/user/ResetPassword.vue'
+import Terms from '../views/user/Terms.vue'
+import Alumni from '../view/alumni/Alumni.vue'
+import JoinAlumni from '../view/alumni/Join.vue'
+import ListAlumni from '../view/alumni/List.vue'
+import RegisterAlumni from '../view/alumni/Register.vue'
 
 const routes = [
   {
@@ -16,8 +20,8 @@ const routes = [
   },
   {
     path: '/user',
-    name: 'SignLayout',
-    component: SignLayout,
+    name: 'UserLayout',
+    component: UserLayout,
     children: [
       {
         path: 'login',
@@ -51,11 +55,28 @@ const routes = [
       }
     ]
   },
-  // {
-  //   path: '/user/list',
-  //   name: 'UserList',
-  //   component: UserList
-  // },
+  {
+    path: '/alumni',
+    name: 'Alumni',
+    component: Alumni,
+    children: [
+      {
+        path: 'join',
+        name: 'JoinAlumni',
+        component: JoinAlumni
+      },
+      {
+        path: 'list',
+        name: 'ListAlumni',
+        component: ListAlumni
+      },
+      {
+        path: 'register',
+        name: 'RegisterAlumni',
+        component: RegisterAlumni
+      }
+    ]
+  },
   // {
   //   path: '/about',
   //   name: 'about',
