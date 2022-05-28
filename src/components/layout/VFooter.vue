@@ -1,5 +1,35 @@
+<script setup>
+import Flag from "@/components/subcomponents/Flag.vue"
+import { reactive, ref, watchEffect } from "vue"
+import { useRouter } from "vue-router";
+import { useStore } from "vuex"
+
+const store = useStore()
+const route = useRouter()
+const selectCountry = ref(true)
+let page = reactive(false)
+
+watchEffect(() => {
+  switch (route.currentRoute.value.name) {
+    case "Register":
+    case "Login":
+    case "Login":
+    case "NewPassword":
+    case "Register":
+    case "ResetPassword":
+      page = false
+      break;
+
+    default:
+      page = true
+      break;
+  }
+  return page
+})
+</script>
+
 <template>
-  <div class="bg-slate-900 flex flex-col gap-8 text-white mt-10 px-10 pt-12 pb-4">
+  <div class="bg-slate-900 flex flex-col gap-8 text-white mt-10 px-10 pt-12 pb-4 text-center" v-if="page">
     <div class="flex flex-col gap-4">
       <div class="text-sm font-semibold">We're in all your favourite places</div>
 
