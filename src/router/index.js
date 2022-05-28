@@ -7,10 +7,15 @@ import NewPassword from '../views/user/NewPassword.vue'
 import Register from '../views/user/Register.vue'
 import ResetPassword from '../views/user/ResetPassword.vue'
 import Terms from '../views/user/Terms.vue'
-import Alumni from '../view/alumni/Alumni.vue'
-import JoinAlumni from '../view/alumni/Join.vue'
-import ListAlumni from '../view/alumni/List.vue'
-import RegisterAlumni from '../view/alumni/Register.vue'
+import AlumniLayout from '../views/alumni/Layout.vue'
+import JoinAlumni from '../views/alumni/Join.vue'
+import ListAlumni from '../views/alumni/List.vue'
+import AlumniPopup from '../views/alumni/Popup.vue'
+import ConnectUser from '../views/alumni/ConnectUser.vue'
+import DownloadApp from '../views/alumni/DownloadApp.vue'
+import FindUser from '../views/alumni/FindUser.vue'
+import NotRegistered from '../views/alumni/NotRegistered.vue'
+import RegisterSchool from '../views/alumni/Register.vue'
 
 const routes = [
   {
@@ -57,23 +62,57 @@ const routes = [
   },
   {
     path: '/alumni',
-    name: 'Alumni',
-    component: Alumni,
+    name: 'AlumniLayout',
+    component: AlumniLayout,
     children: [
       {
         path: 'join',
         name: 'JoinAlumni',
-        component: JoinAlumni
+        component: JoinAlumni,
+        children: [
+          {
+            path: 'popup',
+            name: 'AlumniPopup',
+            component: AlumniPopup
+          }
+        ]
       },
       {
         path: 'list',
         name: 'ListAlumni',
-        component: ListAlumni
-      },
-      {
-        path: 'register',
-        name: 'RegisterAlumni',
-        component: RegisterAlumni
+        component: ListAlumni,
+        props: route => ({ page: parseInt(route.query.page) || 1 }),
+        children: [
+          {
+            path: '/popup',
+            name: 'AlumniPopup',
+            component: AlumniPopup,
+            children: [
+              {
+                path: 'find',
+                name: 'FindUser',
+                component: FindUser
+              },
+              {
+                path: 'connect',
+                name: 'ConnectUser',
+                component: ConnectUser,
+                children: [
+                  {
+                    path: 'download',
+                    name: 'DownloadApp',
+                    component: DownloadApp
+                  }
+                ]
+              },
+              {
+                path: 'register',
+                name: 'RegisterSchool',
+                component: RegisterSchool
+              }
+            ]
+          }
+        ]
       }
     ]
   },
