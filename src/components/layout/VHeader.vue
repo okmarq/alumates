@@ -1,7 +1,7 @@
 <script setup>
-import Flag from "@/components/subcomponents/Flag.vue"
+import Flag from "@/components/Flag.vue"
 import { ref, watchEffect } from "vue"
-import { useRouter } from "vue-router";
+import { useRouter } from "vue-router"
 import { useStore } from "vuex"
 
 const store = useStore()
