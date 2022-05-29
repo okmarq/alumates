@@ -21,8 +21,64 @@ import RegisterSchool from '../views/alumni/Register.vue'
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: Home
+    name: 'Home',
+    component: Home,
+    children: [
+      {
+        path: '',
+        name: 'JoinAlumni',
+        component: JoinAlumni,
+        children: [
+          {
+            path: 'popup',
+            name: 'AlumniPopup2',
+            component: AlumniPopup2,
+            children: [
+              {
+                path: 'unregistered',
+                name: 'NotRegistered',
+                component: NotRegistered
+              },
+              {
+                path: 'registered',
+                name: 'Registered',
+                component: Registered
+              }
+            ]
+          }
+        ]
+      },
+      {
+        path: 'list',
+        name: 'ListAlumni',
+        component: ListAlumni,
+        props: route => ({ page: parseInt(route.query.page) || 1 }),
+        children: [
+          {
+            path: 'popup',
+            name: 'AlumniPopup',
+            component: AlumniPopup,
+            children: [
+              {
+                path: 'connect',
+                name: 'ConnectUser',
+                component: ConnectUser
+              },
+              {
+                path: 'find',
+                name: 'FindUser',
+                component: FindUser
+              },
+              {
+                path: 'register',
+                name: 'RegisterSchool',
+                component: RegisterSchool
+              }
+            ]
+          }
+        ]
+      },
+    ]
   },
   {
     path: '/user',
@@ -59,67 +115,6 @@ const routes = [
         name: 'Conditions',
         component: Conditions
       }
-    ]
-  },
-  {
-    path: '/alumni',
-    name: 'AlumniLayout',
-    component: AlumniLayout,
-    children: [
-      {
-        path: 'list',
-        name: 'ListAlumni',
-        component: ListAlumni,
-        props: route => ({ page: parseInt(route.query.page) || 1 }),
-        children: [
-          {
-            path: 'popup',
-            name: 'AlumniPopup',
-            component: AlumniPopup,
-            children: [
-              {
-                path: 'connect',
-                name: 'ConnectUser',
-                component: ConnectUser
-              },
-              {
-                path: 'find',
-                name: 'FindUser',
-                component: FindUser
-              },
-              {
-                path: 'register',
-                name: 'RegisterSchool',
-                component: RegisterSchool
-              }
-            ]
-          }
-        ]
-      },
-      {
-        path: 'join',
-        name: 'JoinAlumni',
-        component: JoinAlumni,
-        children: [
-          {
-            path: 'popup',
-            name: 'AlumniPopup2',
-            component: AlumniPopup2,
-            children: [
-              {
-                path: 'unregistered',
-                name: 'NotRegistered',
-                component: NotRegistered
-              },
-              {
-                path: 'registered',
-                name: 'Registered',
-                component: Registered
-              }
-            ]
-          }
-        ]
-      },
     ]
   },
   // {
