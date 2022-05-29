@@ -1,5 +1,5 @@
 <script setup>
-import VButtonStore from "@/components/subcomponents/VButtonStore.vue"
+import VButtonStore from "@/components/VButtonStore.vue"
 import { useStore } from 'vuex'
 
 const store = useStore()

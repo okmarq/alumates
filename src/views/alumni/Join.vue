@@ -1,10 +1,10 @@
 <script setup>
-import Badge from "@/components/subcomponents/Badge.vue"
-import Step from "@/components/subcomponents/Step.vue"
+import Badge from "@/components/Badge.vue"
+import Step from "@/components/Step.vue"
 import Hero from "@/components/Hero.vue"
-import VInput from "@/components/subcomponents/VInput.vue"
-import FormTitle from "@/components/subcomponents/FormTitle.vue"
-import VButton from "@/components/subcomponents/VButton.vue"
+import VInput from "@/components/VInput.vue"
+import FormTitle from "@/components/FormTitle.vue"
+import VButton from "@/components/VButton.vue"
 import { reactive, ref, watchEffect } from "vue"
 import axios from 'axios'
 import { useStore } from "vuex";

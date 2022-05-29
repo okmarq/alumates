@@ -1,10 +1,10 @@
 <script setup>
-import VButton from "@/components/subcomponents/VButton.vue"
-import VInput from "@/components/subcomponents/VInput.vue"
+import VButton from "@/components/VButton.vue"
+import VInput from "@/components/VInput.vue"
 import ApiService from "@/services/ApiService"
-import { computed } from "@vue/reactivity";
-import { reactive, watchEffect } from "vue";
-import { useStore } from "vuex";
+import { computed } from "@vue/reactivity"
+import { reactive, watchEffect } from "vue"
+import { useStore } from "vuex"
 
 defineProps({
   page: {
