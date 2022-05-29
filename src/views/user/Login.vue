@@ -1,9 +1,9 @@
 <script setup>
-import VInput from "@/components/subcomponents/VInput.vue"
-import FormTitle from "@/components/subcomponents/FormTitle.vue"
-import VButton from "@/components/subcomponents/VButton.vue"
-import { reactive } from "vue";
-import axios from "axios";
+import VInput from "@/components/VInput.vue"
+import FormTitle from "@/components/FormTitle.vue"
+import VButton from "@/components/VButton.vue"
+import { reactive } from "vue"
+import axios from "axios"
 
 function onSubmit() {
   axios.post(
