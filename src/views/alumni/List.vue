@@ -2,21 +2,38 @@
 import VButton from "@/components/subcomponents/VButton.vue"
 import VInput from "@/components/subcomponents/VInput.vue"
 import ApiService from "@/services/ApiService"
+import { computed } from "@vue/reactivity";
+import { reactive, watchEffect } from "vue";
 import { useStore } from "vuex";
 
-// defineProps({
-//   page: {
-//     type: Number
-//   }
-// })
-// ApiService.getAlumni(5, page)
-//   .then(function (response) {
-//     console.log('Response', response)
-//   })
-//   .catch(function (error) {
-//     console.error('Error', error)
-//   })
+defineProps({
+  page: {
+    type: Number
+  }
+})
 const store = useStore()
+const alumni = reactive({
+  alumni: null,
+  totalUsers: 0
+})
+const page = reactive(1)
+watchEffect(() => {
+  alumni.alumni = null
+  ApiService.getAlumni(5, page)
+    .then(function (response) {
+      console.log('Response', response)
+      alumni.totalUsers = response.headers['x-total-count']
+    })
+    .catch(function (error) {
+      console.error('Error', error)
+    })
+})
+computed({
+  hasNextPage() {
+    let totalPages = Math.ceil(alumni.totalUsers / 2)
+    return page < totalPages
+  }
+})
 </script>
 
 <template>
@@ -46,7 +63,9 @@ const store = useStore()
       </div>
 
       <div class="py-6 space-y-6 text-sm">
-        <!-- <div v-for="alumnus in alumni" :key="alumnus.id" :list="alumnus"></div> -->
+        <div v-if="alumni.alumni">
+          <div v-for="alumnus in alumni" :key="alumnus.id" :list="alumnus"></div>
+        </div>
         <div class="flex items-center justify-between px-8">
           <div class="flex items-center gap-4">
             <img src="../../assets/images/simg.png" alt="user image">
@@ -65,8 +84,12 @@ const store = useStore()
       </div>
     </div>
 
+<div class="pagination"></div>
     <div class="flex justify-between items-center gap-6 px-10 text-gray-400">
-      <span class="text-gray-900">Page:</span>
+      <router-link id="page-prev" class="text-gray-900" :to="{ name: 'ListAlumni', query: { page: page - 1 } }" rel="prev"
+        v-if="page != 1">&#60; Previous
+      </router-link>
+      <span>Page:</span>
       <span class="text-gray-900">1</span>
       <span>2</span>
       <span>3</span>
@@ -74,6 +97,8 @@ const store = useStore()
       <span>5</span>
       <span>...</span>
       <span>15</span>
+      <router-link id="page-next" :to="{ name: 'ListAlumni', query: { page: page + 1 } }" rel="next" v-if="hasNextPage">&#62; Next
+      </router-link>
     </div>
   </div>
 
