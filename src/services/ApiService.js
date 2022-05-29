@@ -10,6 +10,12 @@ const apiClient = axios.create({
 })
 
 export default {
+	getCountries() {
+		return apiClient.get('/countries')
+	},
+	getAlumni(perPage, page) {
+		return apiClient.get('/alumni?_limit=' + perPage + '&_page=' + page)
+	},
 	register(payload) {
 		return apiClient.post('/register', payload)
 	},
@@ -17,16 +23,13 @@ export default {
 		return apiClient.post('/login', payload)
 	},
 	forgotPassword(payload) {
-		return apiClient.post('/forgot_password', payload)
+		return apiClient.post('/password/email', payload)
 	},
 	resetPassword(payload) {
-		return apiClient.post('/reset_password', payload)
+		return apiClient.post('/password/reset', payload)
 	},
 	joinAlumni(payload) {
 		return apiClient.post('/join_alumni', payload)
-	},
-	getAlumni(perPage, page) {
-		return apiClient.get('/alumni?_limit=' + perPage + '&_page=' + page)
 	},
 	registerSchool(payload) {
 		return apiClient.post('/register_school', payload)
