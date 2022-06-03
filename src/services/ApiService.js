@@ -13,6 +13,12 @@ export default {
 	getCountries() {
 		return apiClient.get('/countries')
 	},
+	getStateByName(name) {
+		return apiClient.get('/state/' + name)
+	},
+	getCityByName(name) {
+		return apiClient.get('/city/' + name)
+	},
 	getAlumni(perPage, page) {
 		return apiClient.get('/alumni?_limit=' + perPage + '&_page=' + page)
 	},
