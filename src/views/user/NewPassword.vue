@@ -24,24 +24,23 @@ const payload = reactive({
 </script>
 
 <template>
-	<form @submit.prevent="onSubmit" class="space-y-5">
-		<fieldset>
-			<legend class="text-left mb-8">
-				<FormTitle title="Enter new password." class="pr-56" />
-			</legend>
+  <div class="text-[#151522]">
+    <form @submit.prevent="onSubmit" class="space-y-5">
+      <fieldset>
+        <legend class="text-left mb-8">
+          <FormTitle class="font-bold text-xl pr-56" title="Enter new password." />
+        </legend>
 
-			<div>
-				<label for="password" class="invisible">Password</label>
-				<VInput v-model.trim="payload.password" id="password" type="password" placeholder="Password" class="bg-gray-200" />
-			</div>
+        <div>
+          <label for="password" class="invisible">Password</label>
+          <VInput v-model.trim="payload.password" id="password" type="password" placeholder="Password"
+            class="bg-[#F1F1F1]" />
+        </div>
 
-			<small class="my-5 inline-block">Must be at least 8 characters</small>
-		</fieldset>
+        <small class="mt-5 mb-8 inline-block">Must be at least 8 characters</small>
+      </fieldset>
 
-		<VButton content="Continue" class="bg-neutral-900 text-white py-3 w-full rounded-full" />
-	</form>
-
-	<div class="text-center">Remember password? <router-link class="text-violet-800" :to="{ name: 'Login' }">Login
-		</router-link>
-	</div>
+      <VButton content="Continue" class="bg-[#22151F] text-white py-3 w-full rounded-full" />
+    </form>
+  </div>
 </template>

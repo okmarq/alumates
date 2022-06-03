@@ -24,23 +24,28 @@ const payload = reactive({
 </script>
 
 <template>
-	<form @submit.prevent="onSubmit" class="space-y-5">
-		<fieldset>
-			<legend class="text-left mb-8">
-				<FormTitle title="Reset password." class="pr-56" />
-			</legend>
+  <div class="text-[#151522]">
+    <form @submit.prevent="onSubmit" class="space-y-5">
+      <fieldset>
+        <legend class="text-left mb-8">
+          <FormTitle title="Reset password." class="font-bold text-xl pr-56" />
+        </legend>
 
-			<div>
-				<label for="email" class="invisible">Email address</label>
-				<VInput v-model.trim="payload.email" id="email" placeholder="Email address" class="bg-gray-200" />
-			</div>
-		</fieldset>
+        <div>
+          <label for="email" class="invisible">Email address</label>
+          <VInput v-model.trim="payload.email" id="email" placeholder="Email address" class="bg-[#F1F1F1]" />
+        </div>
 
-		<VButton content="Reset password" class="bg-neutral-900 text-white py-3 w-full rounded-full" />
-	</form>
+        <small class="mt-5 mb-8 inline-block">We’ll send a reset link to your email address</small>
+      </fieldset>
 
-	<div class="text-center">Remember password? <router-link class="text-violet-800" :to="{ name: 'Login' }">
-			Login
-		</router-link>
-	</div>
+      <VButton content="Reset password" class="bg-[#22151F] text-white py-3 w-full rounded-full" />
+    </form>
+
+    <div class="text-center text-sm mt-7">Remember password? <router-link class="text-[#6979F8]"
+        :to="{ name: 'Login' }">
+        Login
+      </router-link>
+    </div>
+  </div>
 </template>
