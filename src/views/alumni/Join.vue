@@ -7,6 +7,7 @@ import FormTitle from "@/components/FormTitle.vue"
 import VButton from "@/components/VButton.vue"
 import { reactive, ref, watchEffect } from "vue"
 import axios from 'axios'
+import ApiService from "@/services/ApiService"
 import { useStore } from "vuex";
 import { useRouter } from "vue-router"
 
@@ -57,32 +58,8 @@ const payload = reactive({
   city: steps[1].formData,
   school: steps[2].formData
 })
-function onSubmit() {
-  store.commit('updateState', steps[0].formData)
-  store.commit('updateCity', steps[1].formData)
-  store.commit('updateSchool', steps[2].formData)
-  axios.post(
-    'https://alumates.herokuapp.com/alumni',
-    payload
-  )
-    .then(function (response) {
-      console.log('Response', response)
-      // route to user list
-    })
-    .catch(function (error) {
-      console.error('Error', error)
-    })
-}
-function formBtn() {
-  if (step.value < steps.length - 1 && steps[step.value].formData != '') {
-    step.value++
-  }
-}
-function formBtnPrev() {
-  if (step.value > 0) {
-    step.value--
-  }
-}
+const states = reactive([])
+const cities = reactive([])
 watchEffect(() => {
   switch (route.currentRoute.value.name) {
     case "List":
@@ -95,6 +72,56 @@ watchEffect(() => {
   }
   return page.value
 })
+function getStateByName() {
+  states.splice(0, states.length)
+  ApiService.getStateByName(steps[0].formData)
+    .then(function (response) {
+      if (response.status === 200) {
+        states.push(response.data)
+        console.log(states)
+      }
+    })
+    .catch(function (error) {
+      console.error('Error', error)
+    })
+}
+function getCityByName() {
+  cities.splice(0, cities.length)
+  ApiService.getCityByName(steps[1].formData)
+    .then(function (response) {
+      if (response.status === 200) {
+        cities.push(response.data)
+        console.log(cities)
+      }
+    })
+    .catch(function (error) {
+      console.error('Error', error)
+    })
+}
+function onSubmit() {
+  if (steps[step.value].step_name === '1' && steps[step.value].formData != '') {
+    store.commit('updateState', steps[0].formData)
+    getStateByName()
+  }
+  if (steps[step.value].step_name === '2' && steps[step.value].formData != '') {
+    store.commit('updateCity', steps[1].formData)
+    getCityByName()
+  }
+  if (steps[step.value].step_name === '3' && steps[step.value].formData != '') {
+    store.commit('updateSchool', steps[2].formData)
+    joinAlumni(payload)
+  }
+}
+function formBtn() {
+  if (step.value < steps.length - 1 && steps[step.value].formData != '') {
+    step.value++
+  }
+}
+function formBtnPrev() {
+  if (step.value > 0) {
+    step.value--
+  }
+}
 </script>
 
 <template>
@@ -103,15 +130,15 @@ watchEffect(() => {
   <div class="relative mt-5">
     <div class="flex justify-between items-center px-4">
       <Step :step_name="steps[0].step_name"
-        :class="steps[0].formData != '' ? 'bg-fuchsia-800 text-white' : 'bg-white text-fuchsia-800'" />
+        :class="steps[0].formData != '' ? 'bg-[#93009C] text-white' : 'bg-white text-[#93009C]'" />
       <Step :step_name="steps[1].step_name"
-        :class="steps[1].formData != '' ? 'bg-fuchsia-800 text-white' : 'bg-white text-fuchsia-800'" />
+        :class="steps[1].formData != '' ? 'bg-[#93009C] text-white' : 'bg-white text-[#93009C]'" />
       <Step :step_name="steps[2].step_name"
-        :class="steps[2].formData != '' ? 'bg-fuchsia-800 text-white' : 'bg-white text-fuchsia-800'" />
+        :class="steps[2].formData != '' ? 'bg-[#93009C] text-white' : 'bg-white text-[#93009C]'" />
     </div>
 
     <div class='absolute top-4 -z-10 px-10 w-full'>
-      <hr class="border border-dashed border-fuchsia-800" />
+      <hr class="border border-dashed border-[#93009C]" />
     </div>
   </div>
 
@@ -123,13 +150,13 @@ watchEffect(() => {
     <Badge :badge_name="steps[2].formData" :class="steps[2].formData != '' ? '' : 'invisible'" class="w-28" />
   </div>
 
-  <div class="relative bg-indigo-600 p-12 mx-auto rounded-2xl text-white mt-16">
+  <div class="relative bg-[#6979F8] p-12 mx-auto rounded-2xl text-white mt-16">
     <img src="../../assets/images/bg/ellipse.svg" alt="ellipse" class="absolute bottom-0 right-0" />
 
     <form @submit.prevent="onSubmit" class="space-y-4 relative z-10">
       <fieldset>
         <legend class="mb-10 px-8">
-          <FormTitle :title="steps[step].title" />
+          <FormTitle class="font-bold text-xl text-[#FAF2FA]" :title="steps[step].title" />
         </legend>
 
         <div class="relative text-gray-400 focus-within:text-gray-600">
@@ -145,14 +172,11 @@ watchEffect(() => {
           </svg>
 
           <VInput v-model.trim="steps[step].formData" v-bind="steps[step].input" required
-            class="border border-gray-900 bg-white" :class="steps[step].step_name != '3' ? 'pl-9' : ''" />
+            class="border border-[#151522] bg-white" :class="steps[step].step_name != '3' ? 'pl-9' : ''" />
         </div>
       </fieldset>
 
-      <VButton v-if="steps[step].inputPadding" type="button" v-bind:content="steps[step].content"
-        class="bg-black py-3 w-full rounded-full" @click="formBtn" />
-
-      <VButton v-else type="submit" v-bind:content="steps[step].content" class="bg-black py-3 w-full rounded-full" />
+      <VButton type="submit" v-bind:content="steps[step].content" class="bg-[#22151F] py-3 w-full rounded-full" />
     </form>
   </div>
 
