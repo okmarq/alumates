@@ -3,10 +3,10 @@ defineProps({
   title: {
     type: String,
     required: true,
-  },
+  }
 })
 </script>
 
 <template>
-  <h3 class="font-bold text-xl">{{ title }}</h3>
+  <h3>{{ title }}</h3>
 </template>

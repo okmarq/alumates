@@ -3,10 +3,14 @@ defineProps({
   content: {
     type: String,
     required: true,
+  },
+  classname: {
+    type: String,
+    required: true,
   }
 })
 </script>
 
 <template>
-  <button>{{ content }}</button>
+  <button :class="classname">{{ content }}</button>
 </template>
