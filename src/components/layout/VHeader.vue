@@ -1,32 +1,56 @@
 <script setup>
 import Flag from "@/components/Flag.vue"
-import { ref, watchEffect } from "vue"
+import { reactive, ref, watchEffect } from "vue"
 import { useRouter } from "vue-router"
 import { useStore } from "vuex"
+import ApiService from "@/services/ApiService"
 
 const store = useStore()
 const route = useRouter()
+const selectCountry = ref(true)
+const page = ref(false)
 const flags = {
   nigeria: {
-    flag_img: "../../assets/images/flags/nigerianflag.svg",
-    flag_name: "Nigeria"
+    img: "../../assets/images/flags/nigerianflag.svg",
+    name: "Nigeria"
   },
   ghana: {
-    flag_img: "../../assets/images/flags/ghanaianflag.svg",
-    flag_name: "Ghana"
+    img: "../../assets/images/flags/ghanaianflag.svg",
+    name: "Ghana"
   },
   france: {
-    flag_img: "../../assets/images/flags/frenchflag.svg",
-    flag_name: "France"
+    img: "../../assets/images/flags/frenchflag.svg",
+    name: "France"
   }
 }
-let selectedFlag = {
+const selectedFlag = {
   src: "../../assets/images/flags/frenchflag.svg",
   id: 'frenchflag'
 }
-const selectCountry = ref(true)
-const page = ref(false)
+const countries = reactive({})
+const selectedCountry = {
+  src: "../../assets/images/flags/frenchflag.svg",
+  id: 'frenchflag'
+}
 
+watchEffect(() => {
+  ApiService.getCountries()
+    .then(function (response) {
+      if (response.status === 200) {
+        response.data.forEach(element => {
+          countries[element.name] = {
+            id: element.id,
+            name: element.name,
+            img: "../../assets/images/flags/nigerianflag.svg"
+          }
+        })
+        console.log(countries)
+      }
+    })
+    .catch(function (error) {
+      console.error('Error', error)
+    })
+})
 watchEffect(() => {
   switch (route.currentRoute.value.name) {
     case "Register":
@@ -49,9 +73,9 @@ watchEffect(() => {
 <template>
   <div class="flex justify-between items-center mt-5">
     <div class="flex gap-5">
-      <p class="font-bold">Alumates</p>
+      <p class="font-bold text-[#333333]">Alumates</p>
 
-      <div class="relative" v-if="page">
+      <div class="relative z-50" v-if="page">
         <div class="flex items-center cursor-pointer" @click='selectCountry = !selectCountry'>
           <img v-bind="selectedFlag" alt="flag" class="pr-2" />
 
@@ -59,19 +83,24 @@ watchEffect(() => {
             id="select_country" />
         </div>
 
-        <div class="shadow-md bg-white rounded-lg w-40 absolute top-6 -left-4" :class="{ 'hidden': selectCountry }"
-          id="country_dropdown">
-          <Flag v-bind="flags.nigeria" :class="{ 'rounded-lg bg-gray-200': true }" />
+        <div class="overflow-hidden">
+          <div class="shadow-md bg-white rounded-lg w-40 h-56 overflow-y-scroll absolute top-6 -left-4" :class="{ 'hidden': selectCountry }"
+            id="country_dropdown">
+            <Flag v-bind="flags.nigeria" :class="{ 'rounded-lg bg-gray-200': true }" />
 
-          <Flag v-bind="flags.ghana" />
+            <Flag v-bind="flags.ghana" />
 
-          <Flag v-bind="flags.france" />
+            <Flag v-bind="flags.france" />
+
+            <Flag v-for="country in countries" v-bind="country" />
+          </div>
         </div>
       </div>
     </div>
 
     <div @click="store.commit('toggleSidebar')" id="hamburger" v-if="page">
-      <img src="../../assets/images/hamburger.svg" alt="flag" class="pr-2 hover:scale-110 cursor-pointer transition-all" />
+      <img src="../../assets/images/hamburger.svg" alt="flag"
+        class="pr-2 hover:scale-110 cursor-pointer transition-all" />
     </div>
   </div>
 </template>

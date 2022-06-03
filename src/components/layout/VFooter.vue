@@ -28,11 +28,11 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div class="bg-slate-900 flex flex-col gap-8 text-white mt-10 px-10 pt-12 pb-4 text-center" v-if="page">
+  <div class="bg-[#151522] flex flex-col gap-8 text-white mt-10 px-10 pt-12 pb-4 text-center" v-if="page">
     <div class="flex flex-col gap-4">
       <div class="text-sm font-semibold">We're in all your favourite places</div>
 
-      <div class="flex items-center justify-center gap-4 text-black">
+      <div class="flex items-center justify-center gap-4 text-[#151522]">
         <button class="flex items-center gap-2 bg-white px-5 py-2 rounded-full">
           <img src="../../assets/images/icons/playstore.svg" alt="playstore" />
 
@@ -58,13 +58,13 @@ watchEffect(() => {
 
       <div class="mx-auto">
         <div class="flex items-center gap-2">
-          <div class="w-2 h-2 bg-pink-700 rounded-full"></div>
+          <div class="w-2 h-2 bg-[#E0138E] rounded-full"></div>
 
           <small>Instagram</small>
         </div>
 
         <div class="flex items-center gap-2">
-          <div class="w-2 h-2 bg-indigo-700 rounded-full"></div>
+          <div class="w-2 h-2 bg-[#1031DE] rounded-full"></div>
 
           <small>Facebook</small>
         </div>
