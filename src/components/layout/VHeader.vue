@@ -15,21 +15,21 @@ const flags = {
     name: "Nigeria"
   },
   ghana: {
-    img: "../../assets/images/flags/Gha.svg",
+    img: "../../assets/images/flags/gha.svg",
     name: "Ghana"
   },
   france: {
-    img: "../../assets/images/flags/Fra.svg",
+    img: "../../assets/images/flags/fra.svg",
     name: "France"
   }
 }
 const selectedFlag = {
-  src: "../../assets/images/flags/Fra.svg",
+  src: "../../assets/images/flags/fra.svg",
   id: 'Fra'
 }
 const countries = reactive({})
 const selectedCountry = {
-  src: "../../assets/images/flags/Fra.svg",
+  src: "../../assets/images/flags/fra.svg",
   id: 'Fra'
 }
 
@@ -44,7 +44,6 @@ watchEffect(() => {
             img: `../../assets/images/flags/${element.short_name}.svg`
           }
         })
-        console.log(countries)
       }
     })
     .catch(function (error) {
@@ -84,15 +83,15 @@ watchEffect(() => {
         </div>
 
         <div class="overflow-hidden">
-          <div class="shadow-md bg-white rounded-lg w-40 h-56 overflow-y-scroll absolute top-6 -left-4" :class="{ 'hidden': selectCountry }"
+          <div class="shadow-md bg-white rounded-lg w-52 h-56 overflow-y-scroll absolute top-6 -left-4" :class="{ 'hidden': selectCountry }"
             id="country_dropdown">
-            <Flag v-bind="flags.nigeria" :class="{ 'rounded-lg bg-gray-200': true }" />
+            <Flag v-bind="flags.nigeria" :class="{ 'rounded-lg bg-[#E4E4E4]': true }" />
 
             <Flag v-bind="flags.ghana" />
 
             <Flag v-bind="flags.france" />
 
-            <Flag v-for="country in countries" v-bind="country" />
+            <Flag v-for="country in countries" v-bind="country" :class="{ 'rounded-lg bg-[#E4E4E4]': false }" />
           </div>
         </div>
       </div>
