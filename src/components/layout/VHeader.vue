@@ -41,7 +41,7 @@ watchEffect(() => {
           countries[element.name] = {
             id: element.id,
             name: element.name,
-            img: "../../assets/images/flags/ng.svg"
+            img: `../../assets/images/flags/${short_name}`
           }
         })
         console.log(countries)
@@ -99,7 +99,7 @@ watchEffect(() => {
     </div>
 
     <div @click="store.commit('toggleSidebar')" id="hamburger" v-if="page">
-      <img src="../../assets/images/hamburger.svg" alt="flag"
+      <img src="../../assets/images/hamburger.svg" alt="hamburger"
         class="pr-2 hover:scale-110 cursor-pointer transition-all" />
     </div>
   </div>
