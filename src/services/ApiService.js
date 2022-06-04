@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const apiClient = axios.create({
-	baseURL: 'https://api.alumates.com',
+	baseURL: 'https://api-alumates.herokuapp.com',
 	withCredentials: false,
 	headers: {
 		Accept: 'application/json',
