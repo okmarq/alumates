@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const apiClient = axios.create({
-	baseURL: 'https://api.alumates.com',
+	baseURL: 'https://api-alumates.herokuapp.com',
 	withCredentials: false,
 	headers: {
 		Accept: 'application/json',
@@ -12,6 +12,12 @@ const apiClient = axios.create({
 export default {
 	getCountries() {
 		return apiClient.get('/countries')
+	},
+	getStateByName(name) {
+		return apiClient.get('/state/' + name)
+	},
+	getCityByName(name) {
+		return apiClient.get('/city/' + name)
 	},
 	getAlumni(perPage, page) {
 		return apiClient.get('/alumni?_limit=' + perPage + '&_page=' + page)

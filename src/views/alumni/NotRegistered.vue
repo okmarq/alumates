@@ -1,5 +1,5 @@
 <script setup>
-import VButton from "@/components/subcomponents/VButton.vue"
+import VButton from "@/components/VButton.vue"
 import { useStore } from 'vuex'
 
 const store = useStore()
@@ -8,7 +8,7 @@ const store = useStore()
 <template>
   <div class="absolute -top-5 w-full h-full">
     <div class="backdrop-blur grid place-items-center h-screen">
-      <div class="w-80 h-64 rounded-xl bg-white shadow-md flex flex-col justify-between gap-10 py-7 mx-auto relative">
+      <div class="w-80 h-64 rounded-xl bg-white shadow-md flex flex-col justify-between gap-10 py-7 mx-auto relative border">
         <img src="../../assets/images/close.svg" alt="arrow"
           class="hover:scale-110 transition-all cursor-pointer absolute top-0 right-0 py-2 px-4" />
 
@@ -20,7 +20,7 @@ const store = useStore()
         </div>
 
         <div>
-          <VButton content="Register my alumni" class="bg-neutral-900 text-white py-3 px-4 rounded-full" />
+          <VButton content="Register my alumni" class="bg-[#22151F] text-white py-3 px-4 rounded-full" />
         </div>
       </div>
     </div>
