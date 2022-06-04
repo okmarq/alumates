@@ -41,7 +41,7 @@ watchEffect(() => {
           countries[element.name] = {
             id: element.id,
             name: element.name,
-            img: `../../assets/images/flags/${short_name}`
+            img: `../../assets/images/flags/${element.short_name}`
           }
         })
         console.log(countries)
