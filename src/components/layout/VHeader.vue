@@ -11,26 +11,26 @@ const selectCountry = ref(true)
 const page = ref(false)
 const flags = {
   nigeria: {
-    img: "../../assets/images/flags/nigerianflag.svg",
+    img: "../../assets/images/flags/ng.svg",
     name: "Nigeria"
   },
   ghana: {
-    img: "../../assets/images/flags/ghanaianflag.svg",
+    img: "../../assets/images/flags/Gha.svg",
     name: "Ghana"
   },
   france: {
-    img: "../../assets/images/flags/frenchflag.svg",
+    img: "../../assets/images/flags/Fra.svg",
     name: "France"
   }
 }
 const selectedFlag = {
-  src: "../../assets/images/flags/frenchflag.svg",
-  id: 'frenchflag'
+  src: "../../assets/images/flags/Fra.svg",
+  id: 'Fra'
 }
 const countries = reactive({})
 const selectedCountry = {
-  src: "../../assets/images/flags/frenchflag.svg",
-  id: 'frenchflag'
+  src: "../../assets/images/flags/Fra.svg",
+  id: 'Fra'
 }
 
 watchEffect(() => {
@@ -41,7 +41,7 @@ watchEffect(() => {
           countries[element.name] = {
             id: element.id,
             name: element.name,
-            img: "../../assets/images/flags/nigerianflag.svg"
+            img: "../../assets/images/flags/ng.svg"
           }
         })
         console.log(countries)
