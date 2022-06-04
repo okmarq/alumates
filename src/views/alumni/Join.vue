@@ -177,6 +177,9 @@ function formBtnPrev() {
           <label :for="steps[step].label" class=""></label>
           <VInput :id="steps[step].label" v-model.trim="steps[step].formData" v-bind="steps[step].input" required
             class="border border-[#151522] bg-white" :class="steps[step].step_name != '3' ? 'pl-9' : ''" />
+          <datalist :id="steps[step].label">
+            <option value="" />
+          </datalist>
         </div>
       </fieldset>
 
