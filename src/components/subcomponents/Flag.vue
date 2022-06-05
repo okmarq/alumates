@@ -7,6 +7,15 @@ defineProps({
   flag_img: {
     type: String,
     required: true,
+    validator: propValue => {
+      const hasImagesDirectory = propValue.indexOf('@/assets/images/flags/') > -1
+      const isSVG = propValue.endsWith('.svg')
+      const isPNG = propValue.endsWith('.png')
+      const isJPEG = propValue.endsWith('.jpeg') || propValue.endsWith('.jpg')
+      const hasValidExtension = isSVG || isPNG || isJPEG
+
+      return hasImagesDirectory && hasValidExtension
+    }
   },
 })
 </script>
