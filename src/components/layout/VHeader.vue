@@ -9,27 +9,12 @@ const store = useStore()
 const route = useRouter()
 const selectCountry = ref(true)
 const page = ref(false)
-const flags = {
-  nigeria: {
-    img: require("@/assets/images/flags/ng.svg"),
-    name: "Nigeria"
-  },
-  ghana: {
-    img: require("@/assets/images/flags/Gha.svg"),
-    name: "Ghana"
-  },
-  france: {
-    img: require("@/assets/images/flags/Fra.svg"),
-    name: "France"
-  }
-}
-const selectedFlag = {
-  src: require("@/assets/images/flags/Fra.svg"),
-  id: 'Fra'
-}
-const selectedCountry = {
-  src: "@/assets/images/flags/Fra.svg",
-  id: 'Fra'
+const selectedFlag = reactive({
+  src: require("@/assets/images/flags/Fra.svg")
+})
+function selectedCountry(data) {
+  let country = countries[data]
+  selectedFlag.src = country.img
 }
 function getFlgImgUrl(image) {
   let images = require.context('@/assets/images/flags/', false, /\.svg$/)
@@ -41,7 +26,7 @@ watchEffect(() => {
     .then(function (response) {
       if (response.status === 200) {
         response.data.forEach(element => {
-          countries[element.name] = {
+          countries[element.id] = {
             id: element.id,
             name: element.name,
             img: getFlgImgUrl(element.short_name)
@@ -88,13 +73,8 @@ watchEffect(() => {
         <div class="overflow-hidden">
           <div class="shadow-md bg-white rounded-lg w-52 h-56 overflow-y-scroll absolute top-6 -left-4"
             :class="{ 'hidden': selectCountry }" id="country_dropdown">
-            <Flag v-bind="flags.nigeria" :class="{ 'rounded-lg bg-[#E4E4E4]': true }" />
-
-            <Flag v-bind="flags.ghana" />
-
-            <Flag v-bind="flags.france" />
-
-            <Flag v-for="country in countries" v-bind="country" :class="{ 'rounded-lg bg-[#E4E4E4]': false }" />
+            <Flag v-for="country in countries" v-bind="country" :class="{ 'rounded-lg bg-[#E4E4E4]': false }"
+              :key="country.id" @click="selectedCountry(country.id)" />
           </div>
         </div>
       </div>
