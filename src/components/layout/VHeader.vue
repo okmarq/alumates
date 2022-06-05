@@ -9,18 +9,32 @@ const store = useStore()
 const route = useRouter()
 const selectCountry = ref(true)
 const page = ref(false)
-const selectedFlag = reactive({
-  src: require("@/assets/images/flags/Fra.svg")
-})
-function selectedCountry(data) {
-  let country = countries[data]
-  selectedFlag.src = country.img
-}
 function getFlgImgUrl(image) {
   let images = require.context('@/assets/images/flags/', false, /\.svg$/)
   return images('./' + image + ".svg")
 }
 const countries = reactive({})
+const countryId = reactive({
+  id: 129
+})
+const selectedFlag = reactive({
+  src: require("@/assets/images/flags/ng.svg"),
+  id: 'ng'
+})
+function selectedCountry(data) {
+  countryId.id = null
+  selectedFlag.src = null
+  let country = countries[data]
+  selectedFlag.src = country.img
+  selectedFlag.id = country.short_name
+  countryId.id = country.id
+  if (country.short_name === selectedFlag.id) {
+    country.class = 'rounded-lg bg-[#E4E4E4]'
+  }
+  if (country.short_name !== selectedCountry.id) {
+    country.class = ''
+  }
+}
 watchEffect(() => {
   ApiService.getCountries()
     .then(function (response) {
@@ -29,11 +43,31 @@ watchEffect(() => {
           countries[element.id] = {
             id: element.id,
             name: element.name,
-            img: getFlgImgUrl(element.short_name)
+            short_name: element.short_name,
+            img: getFlgImgUrl(element.short_name),
+            class: ''
           }
         })
       }
     })
+    .catch(function (error) {
+      console.error('Error', error)
+    })
+})
+const states = reactive({})
+watchEffect(() => {
+  ApiService.getStates(countryId.id).then(function (response) {
+    console.log(response.data)
+    // if (response.status === 200) {
+    //   response.data.forEach(element => {
+    //     states[element.id] = {
+    //       id: element.id,
+    //       name: element.name,
+    //       img: getFlgImgUrl(element.short_name)
+    //     }
+    //   })
+    // }
+  })
     .catch(function (error) {
       console.error('Error', error)
     })
@@ -73,8 +107,9 @@ watchEffect(() => {
         <div class="overflow-hidden">
           <div class="shadow-md bg-white rounded-lg w-52 h-56 overflow-y-scroll absolute top-6 -left-4"
             :class="{ 'hidden': selectCountry }" id="country_dropdown">
-            <Flag v-for="country in countries" v-bind="country" :class="{ 'rounded-lg bg-[#E4E4E4]': false }"
-              :key="country.id" @click="selectedCountry(country.id)" />
+            <Flag v-for="country in countries" v-bind="country"
+              :class="{ 'rounded-lg bg-[#E4E4E4]': country.isSelectedCountry }" :key="country.id"
+              @click="selectedCountry(country.id)" />
           </div>
         </div>
       </div>
