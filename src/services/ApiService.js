@@ -13,8 +13,8 @@ export default {
 	getCountries() {
 		return apiClient.get('/countries')
 	},
-	getStateByName(name) {
-		return apiClient.get('/state/' + name)
+	getStates(country_id) {
+		return apiClient.get('/states/country/' + country_id)
 	},
 	getCityByName(name) {
 		return apiClient.get('/city/' + name)
