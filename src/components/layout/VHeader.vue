@@ -11,28 +11,31 @@ const selectCountry = ref(true)
 const page = ref(false)
 const flags = {
   nigeria: {
-    img: "../../assets/images/flags/ng.svg",
+    img: require("@/assets/images/flags/ng.svg"),
     name: "Nigeria"
   },
   ghana: {
-    img: "../../assets/images/flags/gha.svg",
+    img: require("@/assets/images/flags/Gha.svg"),
     name: "Ghana"
   },
   france: {
-    img: "../../assets/images/flags/fra.svg",
+    img: require("@/assets/images/flags/Fra.svg"),
     name: "France"
   }
 }
 const selectedFlag = {
-  src: "../../assets/images/flags/fra.svg",
+  src: require("@/assets/images/flags/Fra.svg"),
   id: 'Fra'
+}
+const selectedCountry = {
+  src: "@/assets/images/flags/Fra.svg",
+  id: 'Fra'
+}
+function getFlgImgUrl(image) {
+  let images = require.context('@/assets/images/flags/', false, /\.svg$/)
+  return images('./' + image + ".svg")
 }
 const countries = reactive({})
-const selectedCountry = {
-  src: "../../assets/images/flags/fra.svg",
-  id: 'Fra'
-}
-
 watchEffect(() => {
   ApiService.getCountries()
     .then(function (response) {
@@ -41,7 +44,7 @@ watchEffect(() => {
           countries[element.name] = {
             id: element.id,
             name: element.name,
-            img: `../../assets/images/flags/${element.short_name}.svg`
+            img: getFlgImgUrl(element.short_name)
           }
         })
       }
@@ -78,13 +81,13 @@ watchEffect(() => {
         <div class="flex items-center cursor-pointer" @click='selectCountry = !selectCountry'>
           <img v-bind="selectedFlag" alt="flag" class="pr-2" />
 
-          <img src="../../assets/images/arrowdown.svg" alt="arrow" class="hover:scale-110 transition-all"
+          <img src="@/assets/images/arrowdown.svg" alt="arrow" class="hover:scale-110 transition-all"
             id="select_country" />
         </div>
 
         <div class="overflow-hidden">
-          <div class="shadow-md bg-white rounded-lg w-52 h-56 overflow-y-scroll absolute top-6 -left-4" :class="{ 'hidden': selectCountry }"
-            id="country_dropdown">
+          <div class="shadow-md bg-white rounded-lg w-52 h-56 overflow-y-scroll absolute top-6 -left-4"
+            :class="{ 'hidden': selectCountry }" id="country_dropdown">
             <Flag v-bind="flags.nigeria" :class="{ 'rounded-lg bg-[#E4E4E4]': true }" />
 
             <Flag v-bind="flags.ghana" />
@@ -98,7 +101,7 @@ watchEffect(() => {
     </div>
 
     <div @click="store.commit('toggleSidebar')" id="hamburger" v-if="page">
-      <img src="../../assets/images/hamburger.svg" alt="hamburger"
+      <img src="@/assets/images/hamburger.svg" alt="hamburger"
         class="pr-2 hover:scale-110 cursor-pointer transition-all" />
     </div>
   </div>

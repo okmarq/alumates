@@ -18,7 +18,7 @@ const store = useStore()
       </div>
     </div>
 
-    <div class="bg-[#151522] text-white absolute top-0 right-0 flex flex-col justify-between pt-14 pb-20"
+    <!-- <div class="bg-[#151522] text-white absolute top-0 right-0 flex flex-col justify-between pt-14 pb-20"
       :class="{ 'translate-x-0 transition-all w-60 h-screen': store.getters.sidebar }">
       <div class="flex flex-col gap-12 justify-between">
         <div class="flex flex-col gap-4 justify-between items-center">
@@ -59,6 +59,6 @@ const store = useStore()
           <img src="../../assets/images/logout.svg" alt="logout icon">
           <span>Logout</span></route-link>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
