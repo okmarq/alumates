@@ -6,7 +6,6 @@ import VInput from "@/components/VInput.vue"
 import FormTitle from "@/components/FormTitle.vue"
 import VButton from "@/components/VButton.vue"
 import { reactive, ref, watchEffect } from "vue"
-import axios from 'axios'
 import ApiService from "@/services/ApiService"
 import { useStore } from "vuex";
 import { useRouter } from "vue-router"
