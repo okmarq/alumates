@@ -101,8 +101,7 @@ watchEffect(() => {
         <div class="overflow-hidden">
           <div class="shadow-md bg-white rounded-lg w-52 h-56 overflow-y-scroll absolute top-6 -left-4"
             :class="{ 'hidden': selectCountry }" id="country_dropdown">
-            <Flag v-for="country in countries" v-bind="country"
-              :class="{ 'rounded-lg bg-[#E4E4E4]': false }" :key="country.id"
+            <Flag v-for="country in countries" v-bind="country" :key="country.id"
               @click="selectedCountry(country.id)" />
           </div>
         </div>
