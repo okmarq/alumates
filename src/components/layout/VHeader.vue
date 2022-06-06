@@ -22,18 +22,12 @@ const selectedFlag = reactive({
   id: 'ng'
 })
 function selectedCountry(data) {
-  countryId.id = null
-  selectedFlag.src = null
+  countries[countryId.id].class = ''
   let country = countries[data]
+  country.class = 'rounded-lg bg-[#E4E4E4]'
+  countryId.id = country.id
   selectedFlag.src = country.img
   selectedFlag.id = country.short_name
-  countryId.id = country.id
-  if (country.short_name === selectedFlag.id) {
-    country.class = 'rounded-lg bg-[#E4E4E4]'
-  }
-  if (country.short_name !== selectedCountry.id) {
-    country.class = ''
-  }
 }
 watchEffect(() => {
   ApiService.getCountries()
@@ -108,7 +102,7 @@ watchEffect(() => {
           <div class="shadow-md bg-white rounded-lg w-52 h-56 overflow-y-scroll absolute top-6 -left-4"
             :class="{ 'hidden': selectCountry }" id="country_dropdown">
             <Flag v-for="country in countries" v-bind="country"
-              :class="{ 'rounded-lg bg-[#E4E4E4]': country.isSelectedCountry }" :key="country.id"
+              :class="{ 'rounded-lg bg-[#E4E4E4]': false }" :key="country.id"
               @click="selectedCountry(country.id)" />
           </div>
         </div>
