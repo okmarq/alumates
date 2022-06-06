@@ -20,9 +20,9 @@ const steps = reactive([
     formData: '',
     input: {
       type: 'text',
+      list: 'state',
       placeholder: 'Sokoto',
     },
-    label: 'state',
     inputPadding: true,
     step_name: '1',
     title: 'What state was your school in?'
@@ -33,9 +33,9 @@ const steps = reactive([
     formData: '',
     input: {
       type: 'text',
+      list: 'city',
       placeholder: 'Yamaltu-Deba'
     },
-    label: 'city',
     inputPadding: true,
     step_name: '2',
     title: 'What city was your school in?'
@@ -46,9 +46,9 @@ const steps = reactive([
     formData: '',
     input: {
       type: 'text',
+      list: 'school',
       placeholder: 'John Quincy Adams University'
     },
-    label: 'school',
     inputPadding: false,
     step_name: '3',
     title: 'What’s the name of your school?'
@@ -173,11 +173,15 @@ function formBtnPrev() {
               stroke="#151522" stroke-width="1.5" />
           </svg>
 
-          <label :for="steps[step].label" class=""></label>
-          <VInput :id="steps[step].label" v-model.trim="steps[step].formData" v-bind="steps[step].input" required
+          <label :for="steps[step].input.list" class=""></label>
+          <VInput :id="steps[step].input.list" v-model.trim="steps[step].formData" v-bind="steps[step].input" required
             class="border border-[#151522] bg-white" :class="steps[step].step_name != '3' ? 'pl-9' : ''" />
-          <datalist :id="steps[step].label">
-            <option value="" />
+          <datalist :id="steps[step].input.list">
+            <option value="Internet Explorer" />
+            <option value="Firefox" />
+            <option value="Chrome" />
+            <option value="Opera" />
+            <option value="Safari" />
           </datalist>
         </div>
       </fieldset>
