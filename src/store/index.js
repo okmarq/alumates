@@ -2,6 +2,9 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
+    states: [],
+    cities: [],
+    schools: [],
     alumni: {
       state: '',
       city: '',
@@ -17,6 +20,15 @@ export default createStore({
     },
     popup: state => {
       return state.showPopup
+    },
+    states: state => {
+      return state.states
+    },
+    cities: state => {
+      return state.cities
+    },
+    schools: state => {
+      return state.schools
     },
     alumni: state => {
       return state.alumni
@@ -41,6 +53,18 @@ export default createStore({
     togglePopup(state) {
       state.showPopup = !state.showPopup
     },
+    incrementStep(state) {
+      state.step++
+    },
+    updateStates(state, payload) {
+      state.states = payload
+    },
+    updateCities(state, payload) {
+      state.cities = payload
+    },
+    updateSchools(state, payload) {
+      state.schools = payload
+    },
     updateState(state, payload) {
       state.alumni.state = payload
     },
@@ -49,9 +73,6 @@ export default createStore({
     },
     updateSchool(state, payload) {
       state.alumni.school = payload
-    },
-    incrementStep(state) {
-      state.step ++
     }
   },
   actions: {
