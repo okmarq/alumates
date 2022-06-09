@@ -45,25 +45,19 @@ watchEffect(() => {
       }
     })
     .catch(function (error) {
-      console.error('Error', error)
+      // console.error('Error', error)
     })
 })
-const states = reactive({})
 watchEffect(() => {
   ApiService.getStates(countryId.id).then(function (response) {
-    console.log(response.data)
-    // if (response.status === 200) {
-    //   response.data.forEach(element => {
-    //     states[element.id] = {
-    //       id: element.id,
-    //       name: element.name,
-    //       img: getFlgImgUrl(element.short_name)
-    //     }
-    //   })
-    // }
+    if (response.status === 200) {
+      store.commit('updateStates', response.data)
+      store.getters.states
+      // console.log(store.getters.states)
+    }
   })
     .catch(function (error) {
-      console.error('Error', error)
+      // console.error('Error', error)
     })
 })
 watchEffect(() => {
