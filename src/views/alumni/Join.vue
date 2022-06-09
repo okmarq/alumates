@@ -23,6 +23,7 @@ const steps = reactive([
       list: 'state',
       placeholder: 'Sokoto',
     },
+    label: 'lstate',
     inputPadding: true,
     step_name: '1',
     title: 'What state was your school in?'
@@ -36,6 +37,7 @@ const steps = reactive([
       list: 'city',
       placeholder: 'Yamaltu-Deba'
     },
+    label: 'lcity',
     inputPadding: true,
     step_name: '2',
     title: 'What city was your school in?'
@@ -49,6 +51,7 @@ const steps = reactive([
       list: 'school',
       placeholder: 'John Quincy Adams University'
     },
+    label: 'lschool',
     inputPadding: false,
     step_name: '3',
     title: 'What’s the name of your school?'
@@ -60,8 +63,6 @@ const payload = reactive({
   city: steps[1].formData,
   school: steps[2].formData
 })
-const states = reactive([])
-const cities = reactive([])
 watchEffect(() => {
   switch (route.currentRoute.value.name) {
     case "List":
@@ -74,40 +75,26 @@ watchEffect(() => {
   }
   return page.value
 })
-function getStateByName() {
-  states.splice(0, states.length)
-  ApiService.getStateByName(steps[0].formData)
-    .then(function (response) {
-      if (response.status === 200) {
-        states.push(response.data)
-        console.log(states)
-      }
-    })
+function getCities() {
+  ApiService.getCities(countryId.id).then(function (response) {
+    if (response.status === 200) {
+      store.commit('updateStates', response.data)
+      store.getters.states
+      // console.log(store.getters.states)
+    }
+  })
     .catch(function (error) {
-      console.error('Error', error)
-    })
-}
-function getCityByName() {
-  cities.splice(0, cities.length)
-  ApiService.getCityByName(steps[1].formData)
-    .then(function (response) {
-      if (response.status === 200) {
-        cities.push(response.data)
-        console.log(cities)
-      }
-    })
-    .catch(function (error) {
-      console.error('Error', error)
+      // console.error('Error', error)
     })
 }
 function onSubmit() {
   if (steps[step.value].step_name === '1' && steps[step.value].formData != '') {
     store.commit('updateState', steps[0].formData)
-    getStateByName()
+    getCities()
   }
   if (steps[step.value].step_name === '2' && steps[step.value].formData != '') {
     store.commit('updateCity', steps[1].formData)
-    getCityByName()
+    getSchools()
   }
   if (steps[step.value].step_name === '3' && steps[step.value].formData != '') {
     store.commit('updateSchool', steps[2].formData)
@@ -173,15 +160,11 @@ function formBtnPrev() {
               stroke="#151522" stroke-width="1.5" />
           </svg>
 
-          <label :for="steps[step].input.list" class=""></label>
-          <VInput :id="steps[step].input.list" v-model.trim="steps[step].formData" v-bind="steps[step].input" required
+          <label :for="steps[step].label" class=""></label>
+          <VInput :id="steps[step].label" v-model.trim="steps[step].formData" v-bind="steps[step].input" required
             class="border border-[#151522] bg-white" :class="steps[step].step_name != '3' ? 'pl-9' : ''" />
           <datalist :id="steps[step].input.list">
-            <option value="Internet Explorer" />
-            <option value="Firefox" />
-            <option value="Chrome" />
-            <option value="Opera" />
-            <option value="Safari" />
+            <option v-for="state in store.getters.states" :key="state.capital" :value="state.name" />
           </datalist>
         </div>
       </fieldset>
