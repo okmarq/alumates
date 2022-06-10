@@ -16,11 +16,11 @@ export default {
 	getStates(country_id) {
 		return apiClient.get('/states/country/' + country_id)
 	},
-	getCities(name) {
-		return apiClient.get('/city/' + name)
+	getCities(state_id, name) {
+		return apiClient.get('/cities/' + state_id + '/' + name)
 	},
-	getSchools(name) {
-		return apiClient.get('/school/' + name)
+	getSchools(city_id) {
+		return apiClient.get('/schools/city/' + city_id)
 	},
 	getAlumni(perPage, page) {
 		return apiClient.get('/alumni?_limit=' + perPage + '&_page=' + page)
