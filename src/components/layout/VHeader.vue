@@ -45,7 +45,7 @@ watchEffect(() => {
       }
     })
     .catch(function (error) {
-      // console.error('Error', error)
+      console.error('Error', error)
     })
 })
 watchEffect(() => {
@@ -53,11 +53,11 @@ watchEffect(() => {
     if (response.status === 200) {
       store.commit('updateStates', response.data)
       store.getters.states
-      // console.log(store.getters.states)
+      console.log(store.getters.states)
     }
   })
     .catch(function (error) {
-      // console.error('Error', error)
+      console.error('Error', error)
     })
 })
 watchEffect(() => {
