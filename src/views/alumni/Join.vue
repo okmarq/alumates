@@ -76,15 +76,15 @@ watchEffect(() => {
   return page.value
 })
 function getCities() {
-  ApiService.getCities(countryId.id).then(function (response) {
+  ApiService.getCities(cityId.id).then(function (response) {
     if (response.status === 200) {
       store.commit('updateStates', response.data)
       store.getters.states
-      // console.log(store.getters.states)
+      console.log(store.getters.states)
     }
   })
     .catch(function (error) {
-      // console.error('Error', error)
+      console.error('Error', error)
     })
 }
 function onSubmit() {
