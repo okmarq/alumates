@@ -2,28 +2,32 @@
 import VInput from "@/components/VInput.vue"
 import FormTitle from "@/components/FormTitle.vue"
 import VButton from "@/components/VButton.vue"
-import axios from "axios"
 import { reactive } from "vue"
+import { useStore } from "vuex"
+import ApiService from "@/services/ApiService"
+import { useRouter } from "vue-router"
 
-function onSubmit() {
-  axios.post(
-    'https://alumates.herokuapp.com/api/register',
-    payload
-  )
-    .then(function (response) {
-      console.log('Response', response)
-      // route to user list
-    })
-    .catch(function (error) {
-      console.error('Error', error)
-    })
-}
+const store = useStore()
+const route = useRouter()
 const payload = reactive({
   first_name: '',
   last_name: '',
   email: '',
   password: ''
 })
+
+function onSubmit() {
+  ApiService.register(payload)
+    .then(function (response) {
+      if (response.status === 200) {
+        store.commit('userId', response.data.id)
+        route.push({ path: '/list' })
+      }
+    })
+    .catch(function (error) {
+      console.error('Error', error)
+    })
+}
 </script>
 
 <template>
@@ -95,7 +99,8 @@ const payload = reactive({
         class="text-[#151522] bg-white py-3 w-full rounded-full border border-[#151522]" />
     </div>
 
-    <div class="text-center text-sm">Have an account already? <router-link class="text-[#6979F8]" :to="{ name: 'Login' }">Login
+    <div class="text-center text-sm">Have an account already? <router-link class="text-[#6979F8]"
+        :to="{ name: 'Login' }">Login
       </router-link>
     </div>
   </div>
