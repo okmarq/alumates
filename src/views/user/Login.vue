@@ -3,25 +3,28 @@ import VInput from "@/components/VInput.vue"
 import FormTitle from "@/components/FormTitle.vue"
 import VButton from "@/components/VButton.vue"
 import { reactive } from "vue"
-import axios from "axios"
+import { useStore } from "vuex"
+import ApiService from "@/services/ApiService"
+import { useRouter } from "vue-router"
 
+const store = useStore()
+const route = useRouter()
+const payload = reactive({
+  email: '',
+  password: ''
+})
 function onSubmit() {
-  axios.post(
-    'https://alumates.herokuapp.com/api/login',
-    payload
-  )
+  ApiService.login(payload)
     .then(function (response) {
-      console.log('Response', response)
-      // route to user list
+      if (response.status === 200) {
+        store.commit('updateUser', response.data)
+        route.push({ path: '/list' })
+      }
     })
     .catch(function (error) {
       console.error('Error', error)
     })
 }
-const payload = reactive({
-  email: '',
-  password: ''
-})
 </script>
 
 <template>
