@@ -58,11 +58,6 @@ const steps = reactive([
   }
 ])
 const step = ref(0)
-const payload = reactive({
-  state: steps[0].formData,
-  city: steps[1].formData,
-  school: steps[2].formData
-})
 watchEffect(() => {
   switch (route.currentRoute.value.name) {
     case "List":
@@ -75,12 +70,82 @@ watchEffect(() => {
   }
   return page.value
 })
-function getCities() {
-  ApiService.getCities(cityId.id).then(function (response) {
+function getStateId() {
+  // using the state name, get the state id
+  ApiService.getStateId(steps[step.value].formData)
+    .then(function (response) {
+      // use the state id to get all cities in the state
+      getCities(response.data.id)
+      // save the state id name in store
+      store.commit('updateStateId', response.data.id)
+      store.commit('updateState', response.data.name)
+    })
+    .catch(function (error) {
+      console.error('Error', error)
+    })
+}
+function getCities(stateId) {
+  ApiService.getCities(stateId).then(function (response) {
     if (response.status === 200) {
-      store.commit('updateStates', response.data)
-      store.getters.states
-      console.log(store.getters.states)
+      store.commit('updateCities', response.data)
+    }
+  })
+    .catch(function (error) {
+      console.error('Error', error)
+    })
+}
+function getCityId() {
+  // using the city name, get the city id
+  ApiService.getCityId(steps[step.value].formData)
+    .then(function (response) {
+      // use the city id to get all cities in the city
+      getCities(response.data.id)
+      // save the city id name in store
+      store.commit('updateCityId', response.data.id)
+      store.commit('updateCity', response.data.name)
+    })
+    .catch(function (error) {
+      console.error('Error', error)
+    })
+}
+function getSchools() {
+  ApiService.getSchools(steps[step.value].formData).then(function (response) {
+    if (response.status === 200) {
+      store.commit('updateSchools', response.data)
+    }
+  })
+    .catch(function (error) {
+      console.error('Error', error)
+    })
+}
+function getSchoolId() {
+  ApiService.getSchoolId(steps[step.value].formData)
+    .then(function (response) {
+      store.commit('updateCity', response.data.city)
+      store.commit('updateSchool', response.data.name)
+      store.commit('updateSchoolId', response.data.id)
+      getUsers(response.data.id)
+    })
+    .catch(function (error) {
+      console.error('Error', error)
+    })
+}
+const lusers = reactive({})
+const data = reactive([])
+function getUsers(schoolId) {
+  ApiService.getUsers(schoolId).then(function (response) {
+    if (response.status === 200) {
+      response.data.groups.forEach(group => {
+        if (group.users.length) {
+          group.users.forEach(user => {
+            lusers.name = user.name
+            lusers.set = group.year
+            data.push(Object.assign({}, lusers))
+          })
+        }
+      })
+      store.commit('updateUsers', data)
+      route.push({ name: 'ListAlumni' })
     }
   })
     .catch(function (error) {
@@ -89,16 +154,17 @@ function getCities() {
 }
 function onSubmit() {
   if (steps[step.value].step_name === '1' && steps[step.value].formData != '') {
-    store.commit('updateState', steps[0].formData)
-    getCities()
+    getStateId()
+    step.value++
   }
   if (steps[step.value].step_name === '2' && steps[step.value].formData != '') {
     store.commit('updateCity', steps[1].formData)
+    // getCityId()
     getSchools()
+    step.value++
   }
   if (steps[step.value].step_name === '3' && steps[step.value].formData != '') {
-    store.commit('updateSchool', steps[2].formData)
-    joinAlumni(payload)
+    getSchoolId()
   }
 }
 function formBtn() {
@@ -163,8 +229,16 @@ function formBtnPrev() {
           <label :for="steps[step].label" class=""></label>
           <VInput :id="steps[step].label" v-model.trim="steps[step].formData" v-bind="steps[step].input" required
             class="border border-[#151522] bg-white" :class="steps[step].step_name != '3' ? 'pl-9' : ''" />
-          <datalist :id="steps[step].input.list">
+          <datalist v-if="steps[step].step_name == '1'" :id="steps[step].input.list">
             <option v-for="state in store.getters.states" :key="state.capital" :value="state.name" />
+          </datalist>
+
+          <datalist v-if="steps[step].step_name == '2'" :id="steps[step].input.list">
+            <option v-for="city in store.getters.cities" :key="city.id" :value="city.name" />
+          </datalist>
+
+          <datalist v-if="steps[step].step_name == '3'" :id="steps[step].input.list">
+            <option v-for="school in store.getters.schools" :key="school.id" :value="school.name" />
           </datalist>
         </div>
       </fieldset>
