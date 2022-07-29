@@ -3,8 +3,9 @@ import VButton from "@/components/VButton.vue"
 import VInput from "@/components/VInput.vue"
 import ApiService from "@/services/ApiService"
 import { computed } from "@vue/reactivity"
-import { reactive, watchEffect } from "vue"
+import { reactive, ref, watchEffect } from "vue"
 import { useStore } from "vuex"
+import { useRouter } from "vue-router"
 
 defineProps({
   page: {
@@ -12,36 +13,61 @@ defineProps({
   }
 })
 const store = useStore()
+const route = useRouter()
 const alumni = reactive({
   alumni: null,
   totalUsers: 0
 })
-const page = reactive(1)
+const page = ref(0)
 watchEffect(() => {
-  alumni.alumni = null
-  ApiService.getAlumni(5, page)
-    .then(function (response) {
-      console.log('Response', response)
-      alumni.totalUsers = response.headers['x-total-count']
-    })
-    .catch(function (error) {
-      console.error('Error', error)
-    })
+  // ApiService.getAlumni(5, page)
+  //   .then(function (response) {
+  //     console.log('Response', response)
+  //     alumni.totalUsers = response.headers['x-total-count']
+  //   })
+  //   .catch(function (error) {
+  //     console.error('Error', error)
+  //   })
 })
-computed({
-  hasNextPage() {
-    let totalPages = Math.ceil(alumni.totalUsers / 2)
-    return page < totalPages
+// computed({
+// hasNextPage() {
+//   let totalPages = Math.ceil(alumni.totalUsers / 2)
+//   return page < totalPages
+// }
+// })
+function onSubmit() {
+  if (store.getters.user.length == 0) {
+    route.push({ path: '/user/login' })
+  } else {
+    ApiService.getGroups(store.getters.alumni.school_id)
+      .then(function (response) {
+        if (response.status === 200) {
+          ApiService.joinAlumni({ group_id: response.data[0].id, user_id: store.getters.user.id })
+            .then(function (response) {
+              if (response.status === 200) {
+                route.push({ path: '/popup/registered' })
+              }
+            })
+            .catch(function (error) {
+              console.error('Error', error)
+            })
+        }
+      })
+      .catch(function (error) {
+        console.error('Error', error)
+      })
   }
-})
+}
 </script>
 
 <template>
   <div class="my-16 text-center">
     <!-- <h2 class="text-2xl font-semibold mb-6 text-[#151522]">{{ store.getters.school }}</h2> -->
-    <h2 class="text-2xl font-semibold mb-6 text-[#151522]">John Quincy Adams University</h2>
+    <h2 class="text-2xl font-semibold mb-6 text-[#151522]">{{ store.getters.alumni.school }}</h2>
+    <form @submit.prevent="onSubmit">
+      <VButton type="submit" content="Join alumni network" class="bg-[#22151F] rounded-full py-2 px-3 text-white" />
+    </form>
 
-    <VButton content="Join alumni network" class="bg-[#22151F] rounded-full py-2 px-3 text-white" />
   </div>
 
   <div class="mb-7">
@@ -62,11 +88,33 @@ computed({
         <div class="pr-1">Set</div>
       </div>
 
-      <div class="py-6 space-y-6 text-sm text-[#333333]">
+      <div v-if="store.getters.users">
+        <div class="py-6 space-y-6 text-sm text-[#333333]">
+          <div v-for="user in store.getters.users" class="flex items-center justify-between px-8">
+            <div class="flex items-center gap-4">
+              <img src="../../assets/images/simg.png" alt="user image">
+              <span>{{ user.name }}</span>
+            </div>
+            <div>{{ user.set }}</div>
+          </div>
+        </div>
+      </div>
+      <div v-else>
+        <div class="py-6 space-y-6 text-sm text-[#333333]">
+          <div class="flex items-center justify-between px-8">
+            <div class="flex items-center gap-4">
+              <img src="../../assets/images/simg.png" alt="user image">
+              <span>no users found</span>
+            </div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="py-6 space-y-6 text-sm text-[#333333]">
         <div v-if="alumni.alumni">
           <div v-for="alumnus in alumni" :key="alumnus.id" :list="alumnus"></div>
-        </div>
-        <div class="flex items-center justify-between px-8">
+        </div> -->
+      <!-- <div class="flex items-center justify-between px-8">
           <div class="flex items-center gap-4">
             <img src="../../assets/images/simg.png" alt="user image">
             <span>Elvis Presley</span>
@@ -81,11 +129,11 @@ computed({
           </div>
           <div>2018</div>
         </div>
-      </div>
+      </div> -->
     </div>
 
-<div class="pagination"></div>
-    <div class="flex justify-between items-center gap-6 px-10 text-[#999999]">
+    <div class="pagination"></div>
+    <!-- <div class="flex justify-between items-center gap-6 px-10 text-[#999999]">
       <router-link id="page-prev" class="text-black" :to="{ name: 'ListAlumni', query: { page: page - 1 } }" rel="prev"
         v-if="page != 1">&#60; Previous
       </router-link>
@@ -97,9 +145,10 @@ computed({
       <span>5</span>
       <span>...</span>
       <span>15</span>
-      <router-link id="page-next" :to="{ name: 'ListAlumni', query: { page: page + 1 } }" rel="next" v-if="hasNextPage">&#62; Next
+      <router-link id="page-next" :to="{ name: 'ListAlumni', query: { page: page + 1 } }" rel="next" v-if="hasNextPage">
+        &#62; Next
       </router-link>
-    </div>
+    </div> -->
   </div>
 
   <router-view />
