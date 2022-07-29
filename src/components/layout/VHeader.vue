@@ -51,9 +51,15 @@ watchEffect(() => {
 watchEffect(() => {
   ApiService.getStates(countryId.id).then(function (response) {
     if (response.status === 200) {
+      response.data.forEach(element => {
+        store.getters.states[element.id] = {
+          id: element.id,
+          name: element.name,
+          capital: element.capital,
+          country: element.country
+        }
+      })
       store.commit('updateStates', response.data)
-      store.getters.states
-      console.log(store.getters.states)
     }
   })
     .catch(function (error) {
