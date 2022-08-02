@@ -87,12 +87,12 @@ watchEffect(() => {
 
 <template>
   <div class="flex justify-between items-center mt-5">
-    <div class="flex gap-5">
-      <p class="font-bold text-[#333333]">Alumates</p>
+    <div class="flex items-center gap-5">
+      <p class="text-[#333333] text-2xl font-semibold">Alumates</p>
 
       <div class="relative z-50" v-if="page">
         <div class="flex items-center cursor-pointer" @click='selectCountry = !selectCountry'>
-          <img v-bind="selectedFlag" alt="flag" class="pr-2" />
+          <img v-bind="selectedFlag" alt="flag" class="pr-2 w-12 h-12" />
 
           <img src="@/assets/images/arrowdown.svg" alt="arrow" class="hover:scale-110 transition-all"
             id="select_country" />
