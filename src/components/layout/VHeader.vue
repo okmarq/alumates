@@ -13,7 +13,24 @@ function getFlgImgUrl(image) {
   let images = require.context('@/assets/images/flags/', false, /\.svg$/)
   return images('./' + image + ".svg")
 }
-const countries = reactive({})
+const countries = reactive({
+  "Ghana": {
+    id: 65,
+    name: "Ghana",
+    short_name: "Gha",
+    capital: "Accra",
+    img: getFlgImgUrl("Gha"),
+    class: ''
+  },
+  "Nigeria": {
+    id: 129,
+    name: "Nigeria",
+    short_name: "ng",
+    capital: "Abuja",
+    img: getFlgImgUrl("ng"),
+    class: ''
+  }
+})
 const countryId = reactive({
   id: 129
 })
@@ -70,7 +87,6 @@ watchEffect(() => {
   switch (route.currentRoute.value.name) {
     case "Register":
     case "Login":
-    case "Login":
     case "NewPassword":
     case "Register":
     case "ResetPassword":
@@ -103,6 +119,10 @@ watchEffect(() => {
             :class="{ 'hidden': selectCountry }" id="country_dropdown">
             <Flag v-for="country in countries" v-bind="country" :key="country.id"
               @click="selectedCountry(country.id)" />
+
+            <!-- <Flag name="" img="" @click="selectedCountry(country.id)" />
+
+            <Flag name="" img="" @click="selectedCountry(country.id)" /> -->
           </div>
         </div>
       </div>
