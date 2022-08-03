@@ -208,7 +208,7 @@ function formBtnPrev() {
   <div class="relative bg-[#6979F8] p-12 mx-auto rounded-2xl text-white mt-16">
     <img src="../../assets/images/bg/ellipse.svg" alt="ellipse" class="absolute bottom-0 right-0" />
 
-    <form @submit.prevent="onSubmit" class="space-y-4 relative z-10">
+    <form @submit.prevent="onSubmit" class="space-y-4 relative z-10 text-center">
       <fieldset>
         <legend class="mb-10 px-8">
           <FormTitle class="font-bold text-xl text-[#FAF2FA]" :title="steps[step].title" />
