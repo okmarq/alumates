@@ -8,7 +8,7 @@ const store = useStore()
   <div class="text-center backdrop-blur absolute z-50 -top-5 right-0"
     :class="{ 'translate-x-0 transition-all w-full h-full': store.getters.sidebar, 'hidden': !store.getters.sidebar }">
 
-    <!-- <div class="bg-white absolute top-0 right-0 flex flex-col gap-12 pt-28"
+    <div class="bg-white absolute top-0 right-0 flex flex-col gap-12 pt-28"
       :class="{ 'translate-x-0 transition-all w-40 h-full': store.getters.sidebar }">
       <div @click="store.commit('toggleSidebar')">Close</div>
 
@@ -17,7 +17,7 @@ const store = useStore()
 
         <div>Sign Up</div>
       </div>
-    </div> -->
+    </div>
 
     <!-- <div class="bg-[#151522] text-white absolute top-0 right-0 flex flex-col justify-between pt-14 pb-20"
       :class="{ 'translate-x-0 transition-all w-60 h-screen': store.getters.sidebar }">
