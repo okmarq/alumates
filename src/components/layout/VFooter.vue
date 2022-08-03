@@ -12,7 +12,6 @@ watchEffect(() => {
   switch (route.currentRoute.value.name) {
     case "Register":
     case "Login":
-    case "Login":
     case "NewPassword":
     case "Register":
     case "ResetPassword":
@@ -31,7 +30,8 @@ watchEffect(() => {
   <div class="bg-[#151522] flex flex-col gap-8 text-white mt-10 px-10 pt-12 pb-4 text-center" v-if="page">
     <div class="flex flex-col gap-4">
       <div class="text-sm font-semibold">
-        <p>Download our the Alumates App from the respective stores to connect, socialise and create business engagements with your classmates and schoolmates</p>
+        <p>Download our the Alumates App from the respective stores to connect, socialise and create business
+          engagements with your classmates and schoolmates</p>
       </div>
 
       <div class="flex items-center justify-center gap-4 text-[#151522]">
