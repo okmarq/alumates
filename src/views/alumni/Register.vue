@@ -10,7 +10,7 @@ import VButton from "@/components/VButton.vue"
         <img src="../../assets/images/close.svg" alt="arrow"
           class="hover:scale-110 transition-all cursor-pointer absolute top-0 right-0 py-2 px-4" />
 
-        <form>
+        <form class="text-center">
           <fieldset class="flex flex-col gap-6 px-6 text-sm">
             <div>
               <legend class="text-left font-semibold mb-2 pt-10">
