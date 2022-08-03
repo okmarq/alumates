@@ -50,14 +50,14 @@ function onSubmit() {
 
             <div>
               <label for="last_name" class="invisible">Last name</label>
-              <VInput v-model.trim="payload.last_name" id="last_name" placeholder="Last name" class="bg-[#F1F1F1]"
+              <VInput v-model.trim="payload.last_name" id="last_name" type="text" placeholder="Last name" class="bg-[#F1F1F1]"
                 required />
             </div>
           </div>
 
           <div>
             <label for="email" class="invisible">Email address</label>
-            <VInput v-model.trim="payload.email" id="email" placeholder="Email address" class="bg-[#F1F1F1]" required />
+            <VInput v-model.trim="payload.email" type="email" id="email" placeholder="Email address" class="bg-[#F1F1F1]" required />
           </div>
 
           <div>
