@@ -35,23 +35,23 @@ watchEffect(() => {
       </div>
 
       <div class="flex items-center justify-center gap-4 text-[#151522]">
-        <button class="flex items-center gap-2 bg-white px-5 py-2 rounded-full">
+        <a href="https://play.google.com/store/apps/details?id=com.dreamlabs.alumates" type="button" class="flex items-center gap-2 bg-white px-5 py-2 rounded-full">
           <img src="../../assets/images/icons/playstore.svg" alt="playstore" />
 
           <span class="flex flex-col items-start">
             <small class="text-xs">Get on</small>
             <small class="text-xs font-semibold">Playstore</small>
           </span>
-        </button>
+        </a>
 
-        <button class="flex items-center gap-2 bg-white px-5 py-2 rounded-full">
+        <!-- <button class="flex items-center gap-2 bg-white px-5 py-2 rounded-full">
           <img src="../../assets/images/icons/apple.svg" alt="apple" />
 
           <span class="flex flex-col items-start">
             <small class="text-xs">Get on</small>
             <small class="text-xs font-semibold">App Store</small>
           </span>
-        </button>
+        </button> -->
       </div>
     </div>
 
