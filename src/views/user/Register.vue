@@ -31,7 +31,7 @@ function onSubmit() {
 </script>
 
 <template>
-  <div class="flex justify-between items-center border-1">
+  <div class="sm:flex justify-between items-center border-1">
     <div class="flex-1"></div>
 
     <div class="text-[#151522] space-y-10 flex-1 px-8">
