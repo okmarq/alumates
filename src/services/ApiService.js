@@ -1,7 +1,8 @@
 import axios from "axios"
 
 const apiClient = axios.create({
-	baseURL: 'https://api.alumates.com',
+	baseURL: 'http://alumates-api.test:8080',
+	// baseURL: 'https://api.alumates.com',
 	withCredentials: false,
 	headers: {
 		Accept: 'application/json',

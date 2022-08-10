@@ -37,7 +37,7 @@ watchEffect(() => {
 // })
 function onSubmit() {
   if (store.getters.user.length == 0) {
-    route.push({ path: '/user/login' })
+    route.push({ path: '/user/register' })
   } else {
     ApiService.getGroups(store.getters.alumni.school_id)
       .then(function (response) {
